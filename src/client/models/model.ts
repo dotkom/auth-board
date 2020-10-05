@@ -11,7 +11,7 @@ export interface OidcClient {
     client_type: string;
     name: string;
     owner?: OidcClientOwner;
-    data_created: string;
+    date_created: string;
     website_url: string;
     terms_url: string;
     contact_email: string;
