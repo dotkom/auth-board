@@ -43,5 +43,50 @@ export const get = async <T>(
   options: RequestOptions = {}
 ): Promise<T> => {
 	const session = await getSession();
- 	return performRequest(query,{ ...options, headers:{}, session });
+ 	return performRequest(query, { ...options, headers:{}, session });
+};
+
+export const post = async <T>(
+  query: string,
+  data: T | {},
+  options: RequestOptions = {}
+): Promise<T> => {
+	const session = await getSession();
+  	const headers = {
+  		Accept: 'application/json',
+  		'Content-Type': 'application/json',
+  };
+	const body = JSON.stringify(data);
+	const opts = { ...options, method: 'POST', body, headers };
+	return performRequest(query, { ...opts, session });
+};
+
+export const put = async <T, K = Partial<T>>(
+	query: string,
+	data: K,
+	options: RequestOptions = {}
+): Promise<T> => {
+  const session = await getSession();
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+  const body = JSON.stringify(data);
+  const opts = { ...options, method: 'PUT', body, headers };
+  return performRequest(query, { ...opts, session });
+};
+
+export const patch = async <T, K = Partial<T>>(
+	query: string,
+	data: K,
+	options: RequestOptions = {}
+): Promise<T> => {
+  const session = await getSession();
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+  const body = JSON.stringify(data);
+  const opts = { ...options, method: 'PATCH', body, headers };
+  return performRequest(query, { ...opts, session });
 };
