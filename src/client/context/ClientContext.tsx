@@ -1,4 +1,4 @@
-import { get } from "common/utils/api";
+import { get, patch, post } from "common/utils/api";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { OidcClient } from "../models/model";
 
@@ -6,6 +6,7 @@ interface ClientContextType {
     clients: Record<number, OidcClient>;
     loading: boolean;
     getClient: (id: number) => OidcClient;
+    patchClient: (id: number, client: OidcClient) => Promise<void>;
     updateClient: (id: number) => Promise<void>;
 }
 
@@ -13,6 +14,7 @@ const initialContext = {
     clients: {},
     loading: false,
     getClient: () => null,
+    patchClient: () => null,
     updateClient: () => Promise.resolve(),
 }
 
@@ -27,6 +29,11 @@ const ClientProvider: React.FC = ({ children }) => {
         const client = await get<OidcClient>(`/oidc/clients/${id}`);
         setClients({ ...clients, [id]: client  });
         setLoading(false);
+    }
+
+    const patchClient = async (id: number, client: OidcClient) => {
+        const response = await patch<OidcClient>(`/oidc/clients/${id}`, client);
+        console.log(response);
     }
 
     const getClient = (id: number) => {
@@ -49,7 +56,15 @@ const ClientProvider: React.FC = ({ children }) => {
     }, [])
     
     return (
-        <ClientContext.Provider value={{ clients, loading, getClient, updateClient }}>
+        <ClientContext.Provider 
+            value={{
+                clients,
+                loading,
+                getClient,
+                patchClient,
+                updateClient,
+            }}
+        >
             { children }
         </ClientContext.Provider> 
     );

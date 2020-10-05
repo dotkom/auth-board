@@ -1,6 +1,7 @@
 import { Checkbox, TextArea, TextField, RadioGroup, RadioButton, Button, Message } from "@dotkomonline/design-system"
+import ClientContext from "client/context/ClientContext";
 import { OidcClient } from "client/models/model";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { ClientViewProps } from "../types";
 import Callbacks from "./components/Callbacks";
@@ -14,16 +15,26 @@ const PublicMessage = styled(Message)`
 `;
 
 const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
-    const [newClient, setNewClient] = useState<OidcClient>({...client});
+    const [newClient, setNewClient] = useState<OidcClient>(null);
+    const { patchClient } = useContext(ClientContext);
 
     const updateSingleField = (key: string, value: string | boolean | string[]) => {
         setNewClient({...newClient, [key]: value});
     }
 
+    const post = () => {
+        patchClient(client.id, newClient);
+    }
+
+    const eventUpdateField = (key: string, e: React.ChangeEvent<HTMLInputElement>) => {
+        // For use with pure HTML-change events and not prefiltered events.
+        updateSingleField(key, e.currentTarget.value);
+    }
+
     return (
         <>
             <h3>Navn</h3>
-            <TextField placeholder={client.name}/>
+            <TextField placeholder={client.name} onChange={(value) => eventUpdateField("name", value)} value={newClient?.name || client.name} />
             <h3>Beskrivelse</h3>
             <TextArea />
             <h3>Redirect URIs:</h3>
@@ -34,7 +45,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
                 <RadioButton value="public" checked={client.client_type === 'public'}><p><BoldSpan>Public</BoldSpan> - Applikasjonen er åpent tilgjengelig, som f.eks. en mobil-app eller single page web application. For bruk med implicit grant flow eller PKCE</p></RadioButton>
                 <RadioButton value="confidential" checked={client.client_type === 'confidential'}><p><BoldSpan>Confidential</BoldSpan> - Applikasjonen klarer opprettholde konfidensialiteten til client_secret-en. For bruk med ordinær authorization code flow</p></RadioButton>
             </RadioGroup>
-            <Button>Lagre endringer</Button>
+            <Button onClick={post}>Lagre endringer</Button>
             <PublicMessage status="info">
                 <div>
                     <h3>Den meste informasjonen om registrerte applikasjoner og API-er are offentlig</h3>
