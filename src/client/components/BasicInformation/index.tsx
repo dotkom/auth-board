@@ -3,6 +3,7 @@ import ClientContext from "client/context/ClientContext";
 import { OidcClient } from "client/models/model";
 import { useContext, useState } from "react";
 import styled from "styled-components";
+import { ResponseTypes } from "../common/ResponseTypes";
 import { ClientViewProps } from "../types";
 import Callbacks from "./components/Callbacks";
 
@@ -44,6 +45,13 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
             <RadioGroup onChange={(value) => updateSingleField("client_type", value)}>
                 <RadioButton value="public" checked={client.client_type === 'public'}><p><BoldSpan>Public</BoldSpan> - Applikasjonen er åpent tilgjengelig, som f.eks. en mobil-app eller single page web application. For bruk med implicit grant flow eller PKCE</p></RadioButton>
                 <RadioButton value="confidential" checked={client.client_type === 'confidential'}><p><BoldSpan>Confidential</BoldSpan> - Applikasjonen klarer opprettholde konfidensialiteten til client_secret-en. For bruk med ordinær authorization code flow</p></RadioButton>
+            </RadioGroup>
+            <h3>Response Type</h3>
+            <RadioGroup onChange={(value) => updateSingleField("response_types", [value])}>
+                {
+                    ResponseTypes.map(responseType => 
+                        <RadioButton value={String(responseType.id)} checked={client.response_types[0].id === responseType.id}>{responseType.description}</RadioButton>)
+                }
             </RadioGroup>
             <Button onClick={post}>Lagre endringer</Button>
             <PublicMessage status="info">

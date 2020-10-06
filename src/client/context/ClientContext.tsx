@@ -33,7 +33,6 @@ const ClientProvider: React.FC = ({ children }) => {
 
     const patchClient = async (id: number, client: OidcClient) => {
         const response = await patch<OidcClient>(`/oidc/clients/${id}`, client);
-        console.log(response);
     }
 
     const getClient = (id: number) => {
