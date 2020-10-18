@@ -8,7 +8,9 @@ const ClientOverview: React.FC<ClientViewProps> = ({ client }) => {
             <div>
                 <p>Redirect URIs:</p>
                 <ul>
-                    <li>Ikke implementert</li>
+                    { client.redirect_uris.map(url =>
+                        <li>{url}</li>
+                        )}
                 </ul>
                 <p>Opprettet: {client.date_created}</p>
             </div>

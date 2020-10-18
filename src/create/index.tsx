@@ -38,7 +38,7 @@ const CreateForm: React.FC = () => {
             <p>Beskrivelse</p>
             <TextArea placeholder="Lenger beskrivelse"/>
             <p>OAuth 2.0 Redirect URL</p>
-            <TextField placeholder="https://dinapplikasjon.no/callback"/>
+            <TextField placeholder="https://dinapplikasjon.no/callback" value={newApplication?.redirect_uris} onChange={(value) => eventUpdateField('redirect_uris', value)} />
             <p>Response type</p>
             <RadioGroup onChange={(value) => updateSingleField("response_types", [value])}>
                 {

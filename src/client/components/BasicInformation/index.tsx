@@ -39,7 +39,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
             <h3>Beskrivelse</h3>
             <TextArea />
             <h3>Redirect URIs:</h3>
-            <Callbacks callbacks={[]} onChange={(value) => updateSingleField("redirect_uris", value)}/>
+            <Callbacks callbacks={client.redirect_uris || []} onChange={(value) => updateSingleField("redirect_uris", value)}/>
             <Checkbox label="Krev brukerinteraksjon" defaultChecked={client.reuse_consent} onChange={(value) => updateSingleField("require_consent", value)}/>
             <p>Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette for å legge til støtte for login_hint og "passive authentication requests".</p>
             <RadioGroup onChange={(value) => updateSingleField("client_type", value)}>

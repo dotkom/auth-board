@@ -42,7 +42,7 @@ const ClientProvider: React.FC = ({ children }) => {
     useEffect(() => {
         const getClients = async () => {
             setLoading(true);
-            const clients = await get<OidcClient[]>('/oidc/clients');
+            const clients = await post<OidcClient[]>('/oidc/clients/get-own/', {});
             if (clients) {
                 const clientsRecord = clients.reduce((acc, curr) => {
                     return {...acc, [curr.id]: curr};
