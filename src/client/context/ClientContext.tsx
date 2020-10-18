@@ -26,13 +26,13 @@ const ClientProvider: React.FC = ({ children }) => {
 
     const updateClient = async (id: number) => {
         setLoading(true);
-        const client = await get<OidcClient>(`/oidc/clients/${id}`);
+        const client = await get<OidcClient>(`/oidc/clients/${id}/`);
         setClients({ ...clients, [id]: client  });
         setLoading(false);
     }
 
     const patchClient = async (id: number, client: OidcClient) => {
-        const response = await patch<OidcClient>(`/oidc/clients/${id}`, client);
+        const response = await patch<OidcClient>(`/oidc/clients/${id}/`, client);
     }
 
     const getClient = (id: number) => {

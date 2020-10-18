@@ -8,7 +8,7 @@ import ClientList from "./components/List";
 const Overview: React.FC = () => (
     <>
         <Header />
-        <Link {...getCreateAppUrl()}>
+        <Link {...getCreateAppUrl()} passHref={true}>
             <Button>Registrer ny applikasjon</Button>
         </Link>
         <ClientList />

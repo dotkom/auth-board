@@ -50,7 +50,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
             <RadioGroup onChange={(value) => updateSingleField("response_types", [value])}>
                 {
                     ResponseTypes.map(responseType => 
-                        <RadioButton value={String(responseType.id)} checked={client.response_types[0].id === responseType.id}>{responseType.description}</RadioButton>)
+                        <RadioButton key={responseType.id} value={String(responseType.id)} checked={client.response_types[0].id === responseType.id}>{responseType.description}</RadioButton>)
                 }
             </RadioGroup>
             <Button onClick={post}>Lagre endringer</Button>

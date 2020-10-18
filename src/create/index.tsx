@@ -48,7 +48,7 @@ const CreateForm: React.FC = () => {
             </RadioGroup>
             <Checkbox label="Aksepter vilkår for bruk" onChange={setHasAgreed} />
             <div>
-                <Link {...getClientsOverviewUrl()}>
+                <Link {...getClientsOverviewUrl()} passHref={true}>
                     <Button variant="outline">Avbryt</Button>
                 </Link>
                 <Button disabled={!hasAgreed} onClick={createNewApplication}>Registrer ny applikasjon</Button>
