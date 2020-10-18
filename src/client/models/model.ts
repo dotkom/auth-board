@@ -20,6 +20,8 @@ export interface OidcClient {
     reuse_consent: boolean;
     scope: string[];
     response_types: ResponseType[];
+    redirect_uris: string[];
+    client_secret?: string;
 }
 
 export interface ResponseType {

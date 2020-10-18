@@ -22,7 +22,7 @@ const CenterWrapper = styled.div`
 
 const Frontpage: React.FC = () => {
   const signInAndRedirect = () => 
-    signIn('onlineweb4', { callbackUrl: 'http://localhost:3000/clients'})
+    signIn('onlineweb4', { callbackUrl: `${process.env.NEXTAUTH_URL}/clients`})
 
   return (
     <CenterWrapper>

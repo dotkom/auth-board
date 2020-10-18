@@ -7,7 +7,7 @@ interface RequestOptions extends RequestInit {
 
 const performRequest = async (query: string, options: RequestOptions = {}) => {
 	const { headers, session, ...restOptions } = options; 
-  	const url = `https://online.ntnu.no/api/v1${query}`;
+	const url = `${process.env.OW4_ADDRESS}/api/v1${query}`;
   	if (session) {
 		headers['Authorization'] = `Bearer ${session.accessToken}`;
   	}

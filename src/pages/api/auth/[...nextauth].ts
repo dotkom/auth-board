@@ -2,6 +2,9 @@ import NextAuth from 'next-auth';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { SessionBase } from 'next-auth/_utils';
 
+
+export const OW4_ADDRESS = process.env.OW4_ADDRESS || 'https://online.ntnu.no';
+
 interface Token {
   name?: string;
   email?: string;
@@ -48,10 +51,10 @@ const options = {
       params: {
         grant_type: 'authorization_code',
       },
-      accessTokenUrl: 'https://online.ntnu.no/openid/token',
-      requestTokenUrl: '"https://online.ntnu.no/openid/authorize',
-      authorizationUrl: 'https://online.ntnu.no/openid/authorize?response_type=code',
-      profileUrl: 'https://online.ntnu.no/openid/userinfo',
+      accessTokenUrl: `${OW4_ADDRESS}/openid/token`,
+      requestTokenUrl: `${OW4_ADDRESS}/openid/authorize`,
+      authorizationUrl: `${OW4_ADDRESS}/openid/authorize?response_type=code`,
+      profileUrl: `${OW4_ADDRESS}/openid/userinfo`,
       profile: (profile) => {
         return {
           ...profile,
