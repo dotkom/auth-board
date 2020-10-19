@@ -27,3 +27,10 @@ In this README, we are using port 3001.
 ```bash
 npm run dev -- -p 3001
 ```
+
+You also need to create an SSO-client (Oauth2) at OW4 which this system uses to authorize access to client management.  
+ - Go to http://localhost:8000/admin/
+ - Under SSO, create a new client
+   - Set Authorization_code
+   - Set Confidential
+   - Set redirect_uri: http://localhost:3001/api/auth/callback/onlineweb4
