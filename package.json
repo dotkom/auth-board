@@ -1,6 +1,9 @@
 {
-  "name": "with-styled-components",
-  "version": "1.0.0",
+  "name": "auth-board",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "dotkom@online.ntnu.no",
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
