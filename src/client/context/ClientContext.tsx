@@ -1,5 +1,5 @@
 import { get, patch, post } from 'common/utils/api';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OidcClient } from '../models/model';
 
 interface ClientContextType {
@@ -32,7 +32,7 @@ const ClientProvider: React.FC = ({ children }) => {
   };
 
   const patchClient = async (id: number, client: OidcClient) => {
-    const response = await patch<OidcClient>(`/oidc/clients/${id}/`, client);
+    await patch<OidcClient>(`/oidc/clients/${id}/`, client);
   };
 
   const getClient = (id: number) => {

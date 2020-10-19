@@ -1,6 +1,6 @@
 import { Card } from '@dotkomonline/design-system';
 import { OidcClient } from 'client/models/model';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Link from 'next/link';
 import React from 'react';
 import ImageWithDefault from 'common/components/ImageWithDefault';

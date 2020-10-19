@@ -47,7 +47,9 @@ const CreateForm: React.FC = () => {
       <p>Response type</p>
       <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
         {ResponseTypes.map((responseType) => (
-          <RadioButton value={String(responseType.id)}>{responseType.description}</RadioButton>
+          <RadioButton key={responseType.id} value={String(responseType.id)}>
+            {responseType.description}
+          </RadioButton>
         ))}
       </RadioGroup>
       <Checkbox label="Aksepter vilkår for bruk" onChange={setHasAgreed} />

@@ -1,6 +1,7 @@
 import { getBasicInfoUrl, getClientViewUrl } from 'common/utils/urls';
 import Link from 'next/link';
 import styled from 'styled-components';
+import React from 'react';
 
 interface Props {
   id: number;
@@ -15,7 +16,7 @@ const MenuWrapper = styled.nav`
   border-right: 1px solid black;
 `;
 
-const Menu: React.FC<Props> = ({ id, active }) => {
+const Menu: React.FC<Props> = ({ id }) => {
   return (
     <MenuWrapper>
       <Link {...getClientViewUrl(id)}>
