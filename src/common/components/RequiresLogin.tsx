@@ -1,5 +1,6 @@
 import { Spinner } from '@dotkomonline/design-system';
 import { useSession } from 'next-auth/client';
+import React from 'react';
 
 const RequiresLogin: React.FC = ({ children }) => {
   const [session, loading] = useSession();

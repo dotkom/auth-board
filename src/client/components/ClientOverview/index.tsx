@@ -1,5 +1,6 @@
 import ImageWithDefault from 'common/components/ImageWithDefault';
 import { ClientViewProps } from '../types';
+import React from 'react';
 
 const ClientOverview: React.FC<ClientViewProps> = ({ client }) => {
   return (
@@ -9,7 +10,7 @@ const ClientOverview: React.FC<ClientViewProps> = ({ client }) => {
         <p>Redirect URIs:</p>
         <ul>
           {client.redirect_uris.map((url) => (
-            <li>{url}</li>
+            <li key={url}>{url}</li>
           ))}
         </ul>
         <p>Opprettet: {client.date_created}</p>

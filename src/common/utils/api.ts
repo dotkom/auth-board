@@ -43,7 +43,11 @@ export const get = async <T>(query: string, options: RequestOptions = {}): Promi
   return performRequest(query, { ...options, headers: {}, session });
 };
 
-export const post = async <T>(query: string, data: T | {}, options: RequestOptions = {}): Promise<T> => {
+export const post = async <T>(
+  query: string,
+  data: T | Record<string, unknown>,
+  options: RequestOptions = {}
+): Promise<T> => {
   const session = await getSession();
   const headers = {
     Accept: 'application/json',

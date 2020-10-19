@@ -3,6 +3,7 @@ import { OidcClient } from 'client/models/model';
 import { useContext } from 'react';
 import ClientCard from './ClientCard';
 import styled from 'styled-components';
+import React from 'react';
 
 interface Props {
   clients?: OidcClient[];

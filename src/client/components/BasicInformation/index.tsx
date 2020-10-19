@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { ResponseTypes } from '../common/ResponseTypes';
 import { ClientViewProps } from '../types';
 import Callbacks from './components/Callbacks';
+import React from 'react';
 
 const BoldSpan = styled.span`
   font-weight: bold;
@@ -54,7 +55,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
       />
       <p>
         Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette for å
-        legge til støtte for login_hint og "passive authentication requests".
+        legge til støtte for login_hint og &quot;passive authentication requests&quot;.
       </p>
       <RadioGroup onChange={(value) => updateSingleField('client_type', value)}>
         <RadioButton value="public" checked={client.client_type === 'public'}>

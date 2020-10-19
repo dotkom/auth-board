@@ -2,7 +2,7 @@ interface UrlQueryObject {
   [key: string]: string | number;
 }
 
-type URLHelperFunction = () => { href: string; as: string };
+export type URLHelper = { href: string; as: string };
 
 /**
  * Create NextJS link urls with a tagged template literal.
@@ -15,7 +15,7 @@ type URLHelperFunction = () => { href: string; as: string };
  * // We have a page named `/article/[articleId].tsx`, which we want displayed as e.g. `/article/42` in the browser.
  * // To get both the file name (href) and the displayed url (as).
  */
-export const url = (sourceTemplate: TemplateStringsArray, ...params: UrlQueryObject[]): URLHelperFunction => {
+export const url = (sourceTemplate: TemplateStringsArray, ...params: UrlQueryObject[]): URLHelper => {
   let hrefPath = '';
   let asPath = '';
   for (let i = 0; i < sourceTemplate.length; i++) {
