@@ -15,10 +15,10 @@ const CreatePage: React.FC = () => {
 
 export async function getServerSideProps(context: NextPageContext) {
   // This protects the page by retrieving the current session before serving the page.
-  const session = await getSession(context)
+  const session = await getSession(context);
   return {
-    props: { session }
-  }
+    props: { session },
+  };
 }
 
 export default CreatePage;
