@@ -1,5 +1,5 @@
-import { OidcClient } from "client/models/model";
+import { OidcClient } from 'client/models/model';
 
 export interface ClientViewProps {
-    client: OidcClient;
+  client: OidcClient;
 }

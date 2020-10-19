@@ -1,6 +1,6 @@
-import { Provider as AuthProvider } from 'next-auth/client'
+import { Provider as AuthProvider } from 'next-auth/client';
 import { ClientProvider } from 'client/context/ClientContext';
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -10,13 +10,13 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-`
+`;
 
 const theme = {
   colors: {
     primary: '#0070f3',
   },
-}
+};
 
 export default function App({ Component, pageProps }) {
   return (
@@ -24,12 +24,12 @@ export default function App({ Component, pageProps }) {
       <title>Auth-Board</title>
       <GlobalStyle />
       <AuthProvider session={pageProps.session}>
-        <ClientProvider >
+        <ClientProvider>
           <ThemeProvider theme={theme}>
             <Component {...pageProps} />
           </ThemeProvider>
         </ClientProvider>
       </AuthProvider>
     </>
-  )
+  );
 }

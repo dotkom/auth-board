@@ -1,7 +1,6 @@
-import { Button, Logo } from '@dotkomonline/design-system'
-import { signIn } from 'next-auth/client'
-import styled from 'styled-components'
-
+import { Button, Logo } from '@dotkomonline/design-system';
+import { signIn } from 'next-auth/client';
+import styled from 'styled-components';
 
 const CenterWrapper = styled.div`
   width: 100%;
@@ -16,21 +15,19 @@ const CenterWrapper = styled.div`
   }
 
   & > p {
-
   }
 `;
 
 const Frontpage: React.FC = () => {
-  const signInAndRedirect = () => 
-    signIn('onlineweb4', { callbackUrl: `${process.env.NEXTAUTH_URL}/clients`})
+  const signInAndRedirect = () => signIn('onlineweb4', { callbackUrl: `${process.env.NEXTAUTH_URL}/clients` });
 
   return (
     <CenterWrapper>
-      <Logo width={"30%"}/>
+      <Logo width={'30%'} />
       <p>Authentication Dashboard</p>
       <Button onClick={signInAndRedirect}>Logg Inn</Button>
     </CenterWrapper>
   );
-}
+};
 
 export default Frontpage;

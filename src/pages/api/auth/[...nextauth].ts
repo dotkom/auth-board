@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { SessionBase } from 'next-auth/_utils';
 
-
 export const OW4_ADDRESS = process.env.OW4_ADDRESS || 'https://online.ntnu.no';
 
 interface Token {
