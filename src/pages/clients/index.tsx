@@ -2,6 +2,7 @@ import RequiresLogin from 'common/components/RequiresLogin';
 import Overview from 'clients';
 import { getSession } from 'next-auth/client';
 import { NextPageContext } from 'next';
+import React from 'react';
 
 const OverviewPage: React.FC = () => {
   return (

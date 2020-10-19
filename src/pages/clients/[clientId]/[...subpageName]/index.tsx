@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import ClientView from 'client';
 import { NextPageContext } from 'next';
 import { getSession } from 'next-auth/client';
+import React from 'react';
 
 const BasicInfoPage: React.FC = () => {
   const router = useRouter();

@@ -1,6 +1,7 @@
 import { Provider as AuthProvider } from 'next-auth/client';
 import { ClientProvider } from 'client/context/ClientContext';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import React from 'react';
 
 const GlobalStyle = createGlobalStyle`
 

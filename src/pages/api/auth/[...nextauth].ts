@@ -25,7 +25,6 @@ interface Account {
 const options = {
   callbacks: {
     session: async (session: SessionBase, token: Token) => {
-      const { iat, exp, accessToken, ...rest } = token;
       if (token.accessToken) {
         session.accessToken = token.accessToken;
       } else {

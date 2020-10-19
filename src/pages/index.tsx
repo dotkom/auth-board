@@ -1,6 +1,7 @@
 import { Button, Logo } from '@dotkomonline/design-system';
 import { signIn } from 'next-auth/client';
 import styled from 'styled-components';
+import React from 'react';
 
 const CenterWrapper = styled.div`
   width: 100%;
