@@ -16,6 +16,16 @@ const PublicMessage = styled(Message)`
   margin-top: 15px;
 `;
 
+const SpacedForm = styled.form`
+  > * {
+    margin: 15px 0;
+  }
+`;
+
+const SectionHeader = styled.h3`
+  font-weight: bold;
+`;
+
 const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
   const [newClient, setNewClient] = useState<OidcClient>(null);
   const { patchClient } = useContext(ClientContext);
@@ -34,29 +44,32 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
   };
 
   return (
-    <>
-      <h3>Navn</h3>
+    <SpacedForm>
+      <SectionHeader>Navn</SectionHeader>
       <TextField
         placeholder={client.name}
         onChange={(value) => eventUpdateField('name', value)}
         value={newClient?.name || client.name}
       />
-      <h3>Beskrivelse</h3>
+      <SectionHeader>Beskrivelse</SectionHeader>
       <TextArea />
-      <h3>Redirect URIs:</h3>
+      <SectionHeader>Redirect URIs:</SectionHeader>
       <Callbacks
         callbacks={client.redirect_uris || []}
         onChange={(value) => updateSingleField('redirect_uris', value)}
       />
-      <Checkbox
-        label="Krev brukerinteraksjon"
-        defaultChecked={client.reuse_consent}
-        onChange={(value) => updateSingleField('require_consent', value)}
-      />
-      <p>
-        Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette for å
-        legge til støtte for login_hint og &quot;passive authentication requests&quot;.
-      </p>
+      <div>
+        <Checkbox
+          label="Krev brukerinteraksjon"
+          defaultChecked={client.reuse_consent}
+          onChange={(value) => updateSingleField('require_consent', value)}
+        />
+        <p>
+          Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette for
+          å legge til støtte for login_hint og &quot;passive authentication requests&quot;.
+        </p>
+      </div>
+      <SectionHeader>Client Type</SectionHeader>
       <RadioGroup onChange={(value) => updateSingleField('client_type', value)}>
         <RadioButton value="public" checked={client.client_type === 'public'}>
           <p>
@@ -71,7 +84,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
           </p>
         </RadioButton>
       </RadioGroup>
-      <h3>Response Type</h3>
+      <SectionHeader>Response Type</SectionHeader>
       <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
         {ResponseTypes.map((responseType) => (
           <RadioButton
@@ -94,7 +107,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
           </p>
         </div>
       </PublicMessage>
-    </>
+    </SpacedForm>
   );
 };
 

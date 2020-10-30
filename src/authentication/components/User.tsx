@@ -48,8 +48,8 @@ const User: React.FC = () => {
   return (
     <UserPanel>
       <UserInfo onClick={() => setIsOpen(!isOpen)}>
-        <ProfilePic src={session.user.image} alt="Profilbilde" />
-        <Username>{session.user.name}</Username>
+        <ProfilePic src={session?.user.image} alt="Profilbilde" />
+        <Username>{session?.user.name}</Username>
       </UserInfo>
       {isOpen && (
         <LogoutPanel>

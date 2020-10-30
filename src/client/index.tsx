@@ -38,6 +38,7 @@ const ViewColumn = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ClientView: React.FC<Props> = ({ clientId, subPage }) => {

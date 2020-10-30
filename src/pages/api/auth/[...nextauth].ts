@@ -45,7 +45,7 @@ const options = {
       name: 'Onlineweb4',
       type: 'oauth',
       version: '2.0',
-      scope: 'openid profile email onlineweb4',
+      scope: 'openid profile email onlineweb4 oidcadmin',
       params: {
         grant_type: 'authorization_code',
       },

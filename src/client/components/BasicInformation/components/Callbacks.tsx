@@ -10,6 +10,11 @@ interface Props {
 const URL = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 3px 0;
+`;
+
+const Explanation = styled.p`
+  margin-bottom: 5px;
 `;
 
 const Callbacks: React.FC<Props> = ({ callbacks, onChange }) => {
@@ -22,12 +27,12 @@ const Callbacks: React.FC<Props> = ({ callbacks, onChange }) => {
 
   return (
     <div>
-      <p>
+      <Explanation>
         Legg inn dine OAuth 2.0 redirect_uri. Dette er URL-en hvor brukeren vil bli videresendt etter en suksessfull
         autentisering
-      </p>
+      </Explanation>
       <Button onClick={() => setUrls([...urls, ''])}>
-        <Icon name="Add" />
+        <Icon name="add" />
         Legg til Redirect_URI
       </Button>
       {urls.map((callback, index) => (
