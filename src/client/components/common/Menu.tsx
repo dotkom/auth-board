@@ -1,4 +1,4 @@
-import { getBasicInfoUrl, getClientViewUrl } from 'common/utils/urls';
+import { getBasicInfoUrl, getClientViewUrl, getExtendedInfoUrl } from 'common/utils/urls';
 import Link from 'next/link';
 import styled from 'styled-components';
 import React from 'react';
@@ -44,6 +44,9 @@ const Menu: React.FC<Props> = () => {
         </Link>
         <Link {...getBasicInfoUrl(id)}>
           <a className={activePage === 'basicInfo' ? 'active' : ''}>Basic info</a>
+        </Link>
+        <Link {...getExtendedInfoUrl(id)}>
+          <a className={activePage === 'basicInfo' ? 'extendedInfo' : ''}>Extended info</a>
         </Link>
       </MenuWrapper>
     );

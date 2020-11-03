@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import BasicInformation from './components/BasicInformation';
+import ExtendedInformation from './components/ExtendedInfo';  
 import ClientOverview from './components/ClientOverview';
 import ClientContext from './context/ClientContext';
 import Menu from './components/common/Menu';
@@ -15,6 +16,7 @@ interface Props {
 enum PageNames {
   Overview = 'overview',
   BasicInformation = 'basicInfo',
+  ExtendedInformation = 'extendedInfo',
 }
 
 const selectSubView = (name: string) => {
@@ -23,6 +25,8 @@ const selectSubView = (name: string) => {
       return ClientOverview;
     case PageNames.BasicInformation:
       return BasicInformation;
+    case PageNames.ExtendedInformation:
+      return ExtendedInformation;
   }
 };
 
