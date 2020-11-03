@@ -1,12 +1,11 @@
 import { Checkbox, TextArea, TextField, RadioGroup, RadioButton, Button, Message } from '@dotkomonline/design-system';
-import ClientContext from 'client/context/ClientContext';
-import { OidcClient } from 'client/models/model';
-import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { ResponseTypes } from '../common/ResponseTypes';
 import { ClientViewProps } from '../types';
-import Callbacks from './components/Callbacks';
 import React from 'react';
+import SectionHeader from '../common/SectionHeader';
+import URLsField from '../common/URLsField';
+import useClientForm from 'client/hooks/useClientForm';
 
 const BoldSpan = styled.span`
   font-weight: bold;
@@ -22,26 +21,11 @@ const SpacedForm = styled.form`
   }
 `;
 
-const SectionHeader = styled.h3`
-  font-weight: bold;
-`;
+const explanationText =
+  'Legg inn dine OAuth 2.0 redirect_uri. Dette er URL-en hvor brukeren vil bli videresendt etter en suksessfull autentisering';
 
 const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
-  const [newClient, setNewClient] = useState<OidcClient>(null);
-  const { patchClient } = useContext(ClientContext);
-
-  const updateSingleField = (key: string, value: string | boolean | string[]) => {
-    setNewClient({ ...newClient, [key]: value });
-  };
-
-  const post = () => {
-    patchClient(client.id, newClient);
-  };
-
-  const eventUpdateField = (key: string, e: React.ChangeEvent<HTMLInputElement>) => {
-    // For use with pure HTML-change events and not prefiltered events.
-    updateSingleField(key, e.currentTarget.value);
-  };
+  const { eventUpdateField, updateSingleField, post, newClient } = useClientForm(client.id);
 
   return (
     <SpacedForm>
@@ -54,9 +38,11 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
       <SectionHeader>Beskrivelse</SectionHeader>
       <TextArea />
       <SectionHeader>Redirect URIs:</SectionHeader>
-      <Callbacks
-        callbacks={client.redirect_uris || []}
+      <URLsField
+        defaultUrls={client.redirect_uris || []}
         onChange={(value) => updateSingleField('redirect_uris', value)}
+        explanationText={explanationText}
+        buttonText={'Legg til Redirect_URL'}
       />
       <div>
         <Checkbox
@@ -99,7 +85,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
       <Button onClick={post}>Lagre endringer</Button>
       <PublicMessage status="info">
         <div>
-          <h3>Den meste informasjonen om registrerte applikasjoner og API-er are offentlig</h3>
+          <h3>Den meste informasjonen om registrerte applikasjoner og API-er er offentlig</h3>
           <p>
             Alle registerte applikasjoner og API-er er regnet som offentlig informasjon og dermed synlig for
             offentligheten, ikke bare brukere som er innlogget i din applikasjon. Derfor bør du være sikker på at du

@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  callbacks: string[];
+  defaultUrls: string[];
   onChange: (callbackUrls: string[]) => void;
+  explanationText: string;
+  buttonText: string;
 }
 
 const URL = styled.div`
@@ -17,27 +19,24 @@ const Explanation = styled.p`
   margin-bottom: 5px;
 `;
 
-const Callbacks: React.FC<Props> = ({ callbacks, onChange }) => {
-  const [urls, setUrls] = useState<string[]>(callbacks);
+const URLsField: React.FC<Props> = ({ defaultUrls, onChange, explanationText, buttonText }) => {
+  const [urls, setUrls] = useState<string[]>(defaultUrls);
   const onBlur = (id: number, event: React.FocusEvent<HTMLInputElement>) => {
-    const newCallbacks = [...urls.filter((url) => url !== '')]; // Prune empty URL fields.
-    newCallbacks[id] = event.currentTarget.value;
-    onChange(newCallbacks);
+    const newUrls = [...urls.filter((url) => url !== '')]; // Prune empty URL fields.
+    newUrls[id] = event.currentTarget.value;
+    onChange(newUrls);
   };
 
   return (
     <div>
-      <Explanation>
-        Legg inn dine OAuth 2.0 redirect_uri. Dette er URL-en hvor brukeren vil bli videresendt etter en suksessfull
-        autentisering
-      </Explanation>
+      <Explanation>{explanationText}</Explanation>
       <Button onClick={() => setUrls([...urls, ''])}>
         <Icon name="add" />
-        Legg til Redirect_URI
+        {buttonText}
       </Button>
-      {urls.map((callback, index) => (
+      {urls.map((url, index) => (
         <URL key={index}>
-          <TextField placeholder={callback} onBlur={(e) => onBlur(index, e)} />
+          <TextField placeholder={url} onBlur={(e) => onBlur(index, e)} />
           <Button onClick={() => setUrls(urls.filter((_, iter) => index !== iter))}>
             <Icon name="clear" />
           </Button>
@@ -47,4 +46,4 @@ const Callbacks: React.FC<Props> = ({ callbacks, onChange }) => {
   );
 };
 
-export default Callbacks;
+export default URLsField;
