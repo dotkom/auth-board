@@ -1,7 +1,8 @@
 import { signOut, useSession } from 'next-auth/client';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@dotkomonline/design-system';
+import ClientContext from 'client/context/ClientContext';
 
 const ProfilePic = styled.img`
   border-radius: 50%;
@@ -41,8 +42,10 @@ const UserInfo = styled.div`
 const User: React.FC = () => {
   const [session] = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const { emptyContext } = useContext(ClientContext);
 
   const logout = () => {
+    emptyContext();
     signOut({ callbackUrl: 'http://localhost:3000' });
   };
   return (

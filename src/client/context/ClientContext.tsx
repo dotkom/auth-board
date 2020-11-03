@@ -1,21 +1,25 @@
 import { get, patch, post } from 'common/utils/api';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { OidcClient } from '../models/model';
 
 interface ClientContextType {
   clients: Record<number, OidcClient>;
   loading: boolean;
   getClient: (id: number) => OidcClient;
+  getClients: () => Promise<void>;
   patchClient: (id: number, client: OidcClient) => Promise<void>;
   updateClient: (id: number) => Promise<void>;
+  emptyContext: () => void;
 }
 
 const initialContext = {
   clients: {},
   loading: false,
   getClient: () => null,
+  getClients: () => null,
   patchClient: () => null,
   updateClient: () => Promise.resolve(),
+  emptyContext: () => null,
 };
 
 const ClientContext = React.createContext<ClientContextType>(initialContext);
@@ -31,6 +35,8 @@ const ClientProvider: React.FC = ({ children }) => {
     setLoading(false);
   };
 
+  const emptyContext = () => setClients([]);
+
   const patchClient = async (id: number, client: OidcClient) => {
     await patch<OidcClient>(`/oidc/clients/${id}/`, client);
   };
@@ -39,20 +45,17 @@ const ClientProvider: React.FC = ({ children }) => {
     return clients[id];
   };
 
-  useEffect(() => {
-    const getClients = async () => {
-      setLoading(true);
-      const clients = await post<OidcClient[]>('/oidc/clients/get-own/', {});
-      if (clients) {
-        const clientsRecord = clients.reduce((acc, curr) => {
-          return { ...acc, [curr.id]: curr };
-        }, {});
-        setClients(clientsRecord);
-      }
-      setLoading(false);
-    };
-    getClients();
-  }, []);
+  const getClients = async () => {
+    setLoading(true);
+    const clients = await post<OidcClient[]>('/oidc/clients/get-own/', {});
+    if (clients) {
+      const clientsRecord = clients.reduce((acc, curr) => {
+        return { ...acc, [curr.id]: curr };
+      }, {});
+      setClients(clientsRecord);
+    }
+    setLoading(false);
+  };
 
   return (
     <ClientContext.Provider
@@ -60,8 +63,10 @@ const ClientProvider: React.FC = ({ children }) => {
         clients,
         loading,
         getClient,
+        getClients,
         patchClient,
         updateClient,
+        emptyContext,
       }}
     >
       {children}
