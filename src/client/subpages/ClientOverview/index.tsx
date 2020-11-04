@@ -1,9 +1,9 @@
 import ImageWithDefault from 'common/components/ImageWithDefault';
-import { ClientViewProps } from '../types';
+import { ClientViewProps } from '../../types';
 import React from 'react';
-import SubPageHeader from '../common/SubPageHeader';
+import SubPageHeader from '../../components/SubPageHeader';
 import styled from 'styled-components';
-import CodeText from '../common/CodeText';
+import CodeText from '../../components/CodeText';
 
 const RegularListEntry = styled.li`
   list-style: initial;

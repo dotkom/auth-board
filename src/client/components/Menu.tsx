@@ -1,4 +1,4 @@
-import { getBasicInfoUrl, getClientViewUrl, getExtendedInfoUrl } from 'common/utils/urls';
+import { getBasicInfoUrl, getClientViewUrl, getExtendedInfoUrl, getOauthDetailsUrl } from 'common/utils/urls';
 import Link from 'next/link';
 import styled from 'styled-components';
 import React from 'react';
@@ -47,6 +47,9 @@ const Menu: React.FC<Props> = () => {
         </Link>
         <Link {...getExtendedInfoUrl(id)}>
           <a className={activePage === 'basicInfo' ? 'extendedInfo' : ''}>Extended info</a>
+        </Link>
+        <Link {...getOauthDetailsUrl(id)}>
+          <a className={activePage === 'basicInfo' ? 'oauthDetails' : ''}>OAuth details</a>
         </Link>
       </MenuWrapper>
     );

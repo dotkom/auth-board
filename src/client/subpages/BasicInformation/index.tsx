@@ -1,10 +1,10 @@
 import { Checkbox, TextArea, TextField, RadioGroup, RadioButton, Button, Message } from '@dotkomonline/design-system';
 import styled from 'styled-components';
-import { ResponseTypes } from '../common/ResponseTypes';
-import { ClientViewProps } from '../types';
+import { ResponseTypes } from '../../components/ResponseTypes';
+import { ClientViewProps } from '../../types';
 import React from 'react';
-import SectionHeader from '../common/SectionHeader';
-import URLsField from '../common/URLsField';
+import SectionHeader from '../../components/SectionHeader';
+import URLsField from '../../components/URLsField';
 import useClientForm from 'client/hooks/useClientForm';
 
 const BoldSpan = styled.span`

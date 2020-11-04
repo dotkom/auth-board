@@ -1,9 +1,9 @@
 import { Button, TextField } from '@dotkomonline/design-system';
 import useClientForm from 'client/hooks/useClientForm';
 import React from 'react';
-import SectionHeader from '../common/SectionHeader';
-import URLsField from '../common/URLsField';
-import { ClientViewProps } from '../types';
+import SectionHeader from '../../components/SectionHeader';
+import URLsField from '../../components/URLsField';
+import { ClientViewProps } from '../../types';
 
 const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
   const { eventUpdateField, updateSingleField, post } = useClientForm(client.id);

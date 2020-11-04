@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import BasicInformation from './components/BasicInformation';
-import ExtendedInformation from './components/ExtendedInfo';  
-import ClientOverview from './components/ClientOverview';
+import React, { useContext, useState } from 'react';
+import BasicInformation from './subpages/BasicInformation';
+import ExtendedInformation from './subpages/ExtendedInfo';
+import ClientOverview from './subpages/ClientOverview';
+import OauthDetails from './subpages/OAuthDetails';
 import ClientContext from './context/ClientContext';
-import Menu from './components/common/Menu';
+import Menu from './components/Menu';
 import { Spinner } from '@dotkomonline/design-system';
 import Header from 'common/components/Header';
 import styled from 'styled-components';
@@ -17,6 +18,7 @@ enum PageNames {
   Overview = 'overview',
   BasicInformation = 'basicInfo',
   ExtendedInformation = 'extendedInfo',
+  OauthDetails = 'oauthDetails',
 }
 
 const selectSubView = (name: string) => {
@@ -27,11 +29,13 @@ const selectSubView = (name: string) => {
       return BasicInformation;
     case PageNames.ExtendedInformation:
       return ExtendedInformation;
+    case PageNames.OauthDetails:
+      return OauthDetails;
   }
 };
 
 const Content = styled.main`
-  width: 50%;
+  width: 80%;
   height: 100%;
   margin: auto;
   display: flex;
@@ -46,13 +50,20 @@ const ViewColumn = styled.div`
 `;
 
 const ClientView: React.FC<Props> = ({ clientId, subPage }) => {
-  const { getClient, loading } = useContext(ClientContext);
+  const { getClient, loading, getClients } = useContext(ClientContext);
+  const [haveTriedFetching, setHaveTriedFetching] = useState<boolean>(false);
   const client = getClient(Number(clientId));
   const pageName = subPage || PageNames.Overview;
   const CurrentView = selectSubView(pageName);
 
   if (loading) return <Spinner />;
-  if (!client) return <p>Klient ikke funnet.</p>;
+  if (!client) {
+    if (!haveTriedFetching) {
+      setHaveTriedFetching(true);
+      getClients();
+    }
+    return <p>Klient ikke funnet.</p>;
+  }
   return (
     <>
       <Header />
