@@ -42,7 +42,9 @@ const CreateForm: React.FC = () => {
       <TextField
         placeholder="https://dinapplikasjon.no/callback"
         value={newApplication?.redirect_uris}
-        onChange={(value) => eventUpdateField('redirect_uris', value)}
+        onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
+          updateSingleField('redirect_uris', [value.currentTarget.value])
+        }
       />
       <p>Response type</p>
       <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
