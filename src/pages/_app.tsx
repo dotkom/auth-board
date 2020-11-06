@@ -4,7 +4,6 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '@dotkomonline/design-system';
 import React from 'react';
 
-
 const theme = {
   colors: {
     primary: '#0070f3',
