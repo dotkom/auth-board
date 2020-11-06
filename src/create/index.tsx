@@ -1,5 +1,5 @@
 import { Button, Checkbox, RadioButton, RadioGroup, TextArea, TextField } from '@dotkomonline/design-system';
-import { ResponseTypes } from 'client/components/common/ResponseTypes';
+import { ResponseTypes } from 'client/components/ResponseTypes';
 import { OidcClient } from 'client/models/model';
 import { post } from 'common/utils/api';
 import { getClientsOverviewUrl } from 'common/utils/urls';
