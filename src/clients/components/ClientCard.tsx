@@ -16,7 +16,7 @@ const ClientLogo = styled.img`
   justify-self: center;
 `;
 
-const GridText = styled.p`
+const GridText = styled.div`
   grid-column: 2;
   justify-self: baseline;
 `;
@@ -29,21 +29,37 @@ const LowerText = styled(GridText)`
 `;
 
 const CardStyle = {
-  width: '70%',
+  width: '100%',
+  height: '150px',
   marginBottom: '15px',
   display: 'grid',
-  gridTemplateColumns: '1fr 2fr',
+  gridTemplateColumns: '0.5fr 2fr',
   gridTemplateRows: '1fr fr',
 };
+
+const LogoWrapper = styled.div`
+  margin: auto;
+`;
+
+const ApplicationName = styled.h3`
+  font-size: 20px;
+  font-family: Poppins;
+  font-weight: medium;
+`;
 
 const ClientCard: React.FC<Props> = ({ client }) => (
   <Link href={`/clients/${client.id}`}>
     <Card style={CardStyle} as="a">
-      <ImageWithDefault>
-        <ClientLogo src={client.logo} alt="App-logo" />
-      </ImageWithDefault>
-      <UpperText>App: {client.name}</UpperText>
-      <LowerText>ID: {client.client_id}</LowerText>
+      <LogoWrapper>
+        <ImageWithDefault width="100px">
+          <ClientLogo src={client.logo} alt="App-logo" />
+        </ImageWithDefault>
+      </LogoWrapper>
+      <UpperText>
+        <ApplicationName>{client.name}</ApplicationName>
+        <p>ID: {client.client_id}</p>
+      </UpperText>
+      <LowerText>Opprettet: {client.date_created}</LowerText>
     </Card>
   </Link>
 );
