@@ -36,8 +36,6 @@ const CreateForm: React.FC = () => {
         value={newApplication?.name}
         onChange={(value) => eventUpdateField('name', value)}
       />
-      <p>Beskrivelse</p>
-      <TextArea placeholder="Lenger beskrivelse" />
       <p>OAuth 2.0 Redirect URL</p>
       <TextField
         placeholder="https://dinapplikasjon.no/callback"

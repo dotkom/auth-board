@@ -35,8 +35,6 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
         onChange={(value) => eventUpdateField('name', value)}
         value={newClient?.name || client.name}
       />
-      <SectionHeader>Beskrivelse</SectionHeader>
-      <TextArea />
       <SectionHeader>Redirect URIs:</SectionHeader>
       <URLsField
         defaultUrls={client.redirect_uris || []}
