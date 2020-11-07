@@ -8,7 +8,7 @@ import Header from '../common/components/Header';
 import ClientList from './components/List';
 
 const ListWrapper = styled.div`
-  margin: auto;
+  margin: 5% auto auto;
   width: 50%;
 `;
 

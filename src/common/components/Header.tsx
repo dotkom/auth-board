@@ -17,6 +17,7 @@ const Title = styled.a`
   font-family: 'colfaxLight', Arial;
   display: flex;
   justify-content: center;
+  align-items: end;
 `;
 
 const TitleText = styled.h1`
@@ -27,6 +28,7 @@ const TitleText = styled.h1`
   margin-left: 15px;
   position: relative;
   top: 4px;
+  line-height: 1;
 `;
 
 const Header: React.FC = () => (
