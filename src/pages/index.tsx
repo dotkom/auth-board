@@ -10,7 +10,7 @@ const CenterWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  &:first-child {
+  & > svg {
     margin-top: 15px;
   }
 
@@ -32,9 +32,13 @@ const FrontpageLoginCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   padding: 50px;
+  box-shadow: 0 0 4px black;
+  border-radius: 15px;
 
   > h1 {
     margin-bottom: 10px;
+    font-family: Poppins;
+    font-weight: 'medium';
   }
 `;
 
