@@ -15,6 +15,20 @@ const ExtendedGlobalStyle = createGlobalStyle`
   html, body, #__next {
     height: 100%;
   }
+
+  h1, h2, h3 {
+    font-family: Poppins;
+  }
+
+
+  h1 {
+    font-size: xx-large;
+  }
+
+  h2 {
+    font-size: x-large;
+  }
+
 `;
 
 export default function App({ Component, pageProps }) {

@@ -21,9 +21,6 @@ const Title = styled.a`
 `;
 
 const TitleText = styled.h1`
-  font-weight: normal;
-  font-family: Poppins;
-  font-size: xx-large;
   margin: 0;
   margin-left: 15px;
   position: relative;
