@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const HeaderSection = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr 0.4fr 100px;
+  grid-template-columns: 1fr 2fr 1fr;
 `;
 
 const Title = styled.a`

@@ -1,5 +1,5 @@
 import { signOut, useSession } from 'next-auth/client';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Button } from '@dotkomonline/design-system';
 import ClientContext from 'client/context/ClientContext';
@@ -8,6 +8,7 @@ const ProfilePic = styled.img`
   border-radius: 50%;
   margin-right: 5px;
   width: 32px;
+  height: 32px;
 `;
 
 const Username = styled.p`
@@ -17,31 +18,17 @@ const Username = styled.p`
 const UserPanel = styled.div`
   grid-column: 3;
   position: relative;
-`;
-
-const LogoutPanel = styled.div`
-  position: absolute;
-  top: 72px;
-  width: 100%;
-  border: 2px solid black;
-  border-top: 0;
-  padding: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  align-items: end;
 `;
 
-const UserInfo = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 9fr;
-  & > * {
-    padding: 5px;
-  }
+const LogOutButton = styled(Button)`
+  margin-left: 15px;
 `;
 
 const User: React.FC = () => {
   const [session] = useSession();
-  const [isOpen, setIsOpen] = useState(false);
   const { emptyContext } = useContext(ClientContext);
 
   const logout = () => {
@@ -50,15 +37,9 @@ const User: React.FC = () => {
   };
   return (
     <UserPanel>
-      <UserInfo onClick={() => setIsOpen(!isOpen)}>
-        <ProfilePic src={session?.user.image} alt="Profilbilde" />
-        <Username>{session?.user.name}</Username>
-      </UserInfo>
-      {isOpen && (
-        <LogoutPanel>
-          <Button onClick={logout}>Logg ut</Button>
-        </LogoutPanel>
-      )}
+      <ProfilePic src={session?.user.image} alt="Profilbilde" />
+      <Username>{session?.user.name}</Username>
+      <LogOutButton onClick={logout}>Logg ut</LogOutButton>
     </UserPanel>
   );
 };
