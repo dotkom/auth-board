@@ -15,9 +15,9 @@ const PublicMessage = styled(Message)`
   margin-top: 15px;
 `;
 
-const SpacedForm = styled.form`
+export const SpacedForm = styled.form`
   > * {
-    margin: 15px 0;
+    margin: 3% 0;
   }
 `;
 
@@ -29,20 +29,25 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
 
   return (
     <SpacedForm>
-      <SectionHeader>Navn</SectionHeader>
-      <TextField
-        placeholder={client.name}
-        onChange={(value) => eventUpdateField('name', value)}
-        value={newClient?.name || client.name}
-      />
-      <SectionHeader>Redirect URIs:</SectionHeader>
-      <URLsField
-        defaultUrls={client.redirect_uris || []}
-        onChange={(value) => updateSingleField('redirect_uris', value)}
-        explanationText={explanationText}
-        buttonText={'Legg til Redirect_URL'}
-      />
-      <div>
+      <article>
+        <SectionHeader>Navn</SectionHeader>
+        <TextField
+          placeholder={client.name}
+          onChange={(value) => eventUpdateField('name', value)}
+          value={newClient?.name || client.name}
+        />
+      </article>
+      <article>
+        <SectionHeader>Redirect URIs:</SectionHeader>
+        <URLsField
+          defaultUrls={client.redirect_uris || []}
+          onChange={(value) => updateSingleField('redirect_uris', value)}
+          explanationText={explanationText}
+          buttonText={'Legg til Redirect_URL'}
+        />
+      </article>
+      <article>
+        <SectionHeader>Brukerinteraksjon</SectionHeader>
         <Checkbox
           label="Krev brukerinteraksjon"
           defaultChecked={client.reuse_consent}
@@ -52,35 +57,41 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
           Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette for
           å legge til støtte for login_hint og &quot;passive authentication requests&quot;.
         </p>
-      </div>
-      <SectionHeader>Client Type</SectionHeader>
-      <RadioGroup onChange={(value) => updateSingleField('client_type', value)}>
-        <RadioButton value="public" checked={client.client_type === 'public'}>
-          <p>
-            <BoldSpan>Public</BoldSpan> - Applikasjonen er åpent tilgjengelig, som f.eks. en mobil-app eller single page
-            web application. For bruk med implicit grant flow eller PKCE
-          </p>
-        </RadioButton>
-        <RadioButton value="confidential" checked={client.client_type === 'confidential'}>
-          <p>
-            <BoldSpan>Confidential</BoldSpan> - Applikasjonen klarer opprettholde konfidensialiteten til
-            client_secret-en. For bruk med ordinær authorization code flow
-          </p>
-        </RadioButton>
-      </RadioGroup>
-      <SectionHeader>Response Type</SectionHeader>
-      <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
-        {ResponseTypes.map((responseType) => (
-          <RadioButton
-            key={responseType.id}
-            value={String(responseType.id)}
-            checked={client.response_types[0].id === responseType.id}
-          >
-            {responseType.description}
+      </article>
+      <article>
+        <SectionHeader>Client Type</SectionHeader>
+        <RadioGroup onChange={(value) => updateSingleField('client_type', value)}>
+          <RadioButton value="public" checked={client.client_type === 'public'}>
+            <p>
+              <BoldSpan>Public</BoldSpan> - Applikasjonen er åpent tilgjengelig, som f.eks. en mobil-app eller single
+              page web application. For bruk med implicit grant flow eller PKCE
+            </p>
           </RadioButton>
-        ))}
-      </RadioGroup>
-      <Button onClick={post}>Lagre endringer</Button>
+          <RadioButton value="confidential" checked={client.client_type === 'confidential'}>
+            <p>
+              <BoldSpan>Confidential</BoldSpan> - Applikasjonen klarer opprettholde konfidensialiteten til
+              client_secret-en. For bruk med ordinær authorization code flow
+            </p>
+          </RadioButton>
+        </RadioGroup>
+      </article>
+      <article>
+        <SectionHeader>Response Type</SectionHeader>
+        <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
+          {ResponseTypes.map((responseType) => (
+            <RadioButton
+              key={responseType.id}
+              value={String(responseType.id)}
+              checked={client.response_types[0].id === responseType.id}
+            >
+              {responseType.description}
+            </RadioButton>
+          ))}
+        </RadioGroup>
+      </article>
+      <Button onClick={post} color="success">
+        Lagre endringer
+      </Button>
       <PublicMessage status="info">
         <div>
           <h3>Den meste informasjonen om registrerte applikasjoner og API-er er offentlig</h3>

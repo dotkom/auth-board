@@ -4,27 +4,36 @@ import React from 'react';
 import SectionHeader from '../../components/SectionHeader';
 import URLsField from '../../components/URLsField';
 import { ClientViewProps } from '../../types';
+import { SpacedForm } from '../BasicInformation';
 
 const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
-  const { eventUpdateField, updateSingleField, post } = useClientForm(client.id);
+  const { newClient, eventUpdateField, updateSingleField, post } = useClientForm(client.id);
 
   return (
-    <>
-      <SectionHeader>Hjemmeside for applikasjonen</SectionHeader>
-      <TextField />
-      <SectionHeader>Policy-URL</SectionHeader>
-      <TextField />
-      <SectionHeader>Kontakte-post</SectionHeader>
-      <TextField onChange={(value) => eventUpdateField('', value)} />
-      <SectionHeader>Post logout redirect URI</SectionHeader>
-      <URLsField
-        explanationText={''}
-        buttonText="Legg til Post-logout Redirect URI"
-        defaultUrls={[]}
-        onChange={(value) => updateSingleField('post_redirect_uris', value)}
-      />
+    <SpacedForm>
+      <article>
+        <SectionHeader>Hjemmeside for applikasjonen</SectionHeader>
+        <TextField />
+      </article>
+      <article>
+        <SectionHeader>Policy-URL</SectionHeader>
+        <TextField />
+      </article>
+      <article>
+        <SectionHeader>Kontakt-e-postadresse</SectionHeader>
+        <TextField onChange={(value) => eventUpdateField('', value)} />
+      </article>
+      <article>
+        <SectionHeader>Post logout redirect URI</SectionHeader>
+        <URLsField
+          explanationText={''}
+          buttonText="Legg til Post-logout Redirect URI"
+          defaultUrls={newClient?.post_redirect_uris || []}
+          onChange={(value) => updateSingleField('post_redirect_uris', value)}
+        />
+      </article>
       <Button onClick={post}>Lagre</Button>
-    </>
+    </SpacedForm>
   );
 };
 

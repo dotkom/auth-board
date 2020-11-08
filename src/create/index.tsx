@@ -9,7 +9,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.section`
-  margin: 5% 5% 0%;
+  width: 70%;
+  margin: auto;
   > * {
     margin: 1% 0;
   }
