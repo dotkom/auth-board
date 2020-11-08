@@ -33,9 +33,9 @@ const OAuthDetails: React.FC<ClientViewProps> = ({ client }) => (
     <TopSection>
       <SubPageHeader>OAuth 2.0 og OpenID Connect</SubPageHeader>
       <p>
-        All APIs at Dataporten are protected with OAuth 2.0. The first thing you would need to configure in your client
-        is the OAuth 2.0 flow to let your client obtain an OAuth token for the current user, and then your client may
-        use this token to access the various APIs.
+        Flere av API-endepunktene på Onlineweb4 er beskyttet med OAuth 2.0. Det første du må konfigurere i din klient er
+        hvilken OAuth 2.0 flow skal bruke til å skaffe en OAuth token for den aktive brukeren, for deretter å bruke
+        denne tokenen til å aksessere de ulike API-endepunktene.
       </p>
     </TopSection>
     <LeftColumn>
