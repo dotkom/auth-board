@@ -28,7 +28,7 @@ const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
         <URLsField
           explanationText={''}
           buttonText="Legg til Post-logout Redirect URI"
-          defaultUrls={newClient?.post_redirect_uris || []}
+          defaultUrls={['Ikke implementert']}
           onChange={(value) => updateSingleField('post_redirect_uris', value)}
         />
       </article>
