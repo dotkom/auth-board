@@ -6,6 +6,7 @@ import React from 'react';
 import SectionHeader from '../../components/SectionHeader';
 import URLsField from '../../components/URLsField';
 import useClientForm from 'client/hooks/useClientForm';
+import ControlledSpacedForm from 'client/components/SpacedForm';
 
 const BoldSpan = styled.span`
   font-weight: bold;
@@ -15,12 +16,6 @@ const PublicMessage = styled(Message)`
   margin-top: 15px;
 `;
 
-export const SpacedForm = styled.form`
-  > * {
-    margin: 3% 0;
-  }
-`;
-
 const explanationText =
   'Legg inn dine OAuth 2.0 redirect_uri. Dette er URL-en hvor brukeren vil bli videresendt etter en suksessfull autentisering';
 
@@ -28,7 +23,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
   const { eventUpdateField, updateSingleField, post, newClient } = useClientForm(client.id);
 
   return (
-    <SpacedForm>
+    <ControlledSpacedForm>
       <article>
         <SectionHeader>Navn</SectionHeader>
         <TextField
@@ -102,7 +97,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
           </p>
         </div>
       </PublicMessage>
-    </SpacedForm>
+    </ControlledSpacedForm>
   );
 };
 

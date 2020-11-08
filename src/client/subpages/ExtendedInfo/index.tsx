@@ -1,16 +1,16 @@
 import { Button, TextField } from '@dotkomonline/design-system';
+import ControlledSpacedForm from 'client/components/SpacedForm';
 import useClientForm from 'client/hooks/useClientForm';
 import React from 'react';
 import SectionHeader from '../../components/SectionHeader';
 import URLsField from '../../components/URLsField';
 import { ClientViewProps } from '../../types';
-import { SpacedForm } from '../BasicInformation';
 
 const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
   const { newClient, eventUpdateField, updateSingleField, post } = useClientForm(client.id);
 
   return (
-    <SpacedForm>
+    <ControlledSpacedForm>
       <article>
         <SectionHeader>Hjemmeside for applikasjonen</SectionHeader>
         <TextField />
@@ -33,7 +33,7 @@ const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
         />
       </article>
       <Button onClick={post}>Lagre</Button>
-    </SpacedForm>
+    </ControlledSpacedForm>
   );
 };
 
