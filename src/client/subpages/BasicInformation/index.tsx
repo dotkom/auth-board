@@ -1,4 +1,4 @@
-import { Checkbox, TextArea, TextField, RadioGroup, RadioButton, Button, Message } from '@dotkomonline/design-system';
+import { Checkbox, TextField, RadioGroup, RadioButton, Button, Message } from '@dotkomonline/design-system';
 import styled from 'styled-components';
 import { ResponseTypes } from '../../components/ResponseTypes';
 import { ClientViewProps } from '../../types';
