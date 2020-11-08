@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/client';
 import React from 'react';
 import styled from 'styled-components';
 
-const SpinnerWrapper = styled.div`
+export const CenterSpinnerWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -15,9 +15,9 @@ const RequiresLogin: React.FC = ({ children }) => {
   const [session, loading] = useSession();
   if (loading)
     return (
-      <SpinnerWrapper>
+      <CenterSpinnerWrapper>
         <Spinner />
-      </SpinnerWrapper>
+      </CenterSpinnerWrapper>
     );
   if (!session) return <p>Du må logge inn for å se denne siden.</p>;
   return <>{children}</>;

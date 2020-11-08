@@ -8,6 +8,7 @@ import Menu from './components/Menu';
 import { Spinner } from '@dotkomonline/design-system';
 import Header from 'common/components/Header';
 import styled from 'styled-components';
+import { CenterSpinnerWrapper } from 'common/components/RequiresLogin';
 
 interface Props {
   clientId: number;
@@ -56,7 +57,12 @@ const ClientView: React.FC<Props> = ({ clientId, subPage }) => {
   const pageName = subPage || PageNames.Overview;
   const CurrentView = selectSubView(pageName);
 
-  if (loading) return <Spinner />;
+  if (loading)
+    return (
+      <CenterSpinnerWrapper>
+        <Spinner />
+      </CenterSpinnerWrapper>
+    );
   if (!client) {
     if (!haveTriedFetching) {
       setHaveTriedFetching(true);
