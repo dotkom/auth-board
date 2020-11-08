@@ -18,10 +18,20 @@ const performRequest = async (query: string, options: RequestOptions = {}) => {
     return null;
   }
 
-  let data;
+  // 403 - Forbidden does not return any meaningful api data (oidc consent api requires that an error is thrown to show error message)
+  // 5xx - Gateway/Internal errors do not return any meaningful api data
+  if (response.status === 403 || response.status === 404 || response.status > 499) {
+    throw new Error(`FetchError: ${response.status} for ${url}`);
+  }
+
   try {
-    data = await response.json();
-    data = data.results;
+    const data = await response.json();
+    // Return results if paginated
+    if (data.hasOwnProperty('results')) {
+      return data.results;
+    }
+    // Else, return JSON-data
+    return data;
   } catch {
     throw new Error(
       `Expected data from ${url} to be JSON. Attempt to turn the body into JSON resulted in ${JSON.stringify(
@@ -29,13 +39,6 @@ const performRequest = async (query: string, options: RequestOptions = {}) => {
       )}`
     );
   }
-
-  // 403 - Forbidden does not return any meaningful api data (oidc consent api requires that an error is thrown to show error message)
-  // 5xx - Gateway/Internal errors do not return any meaningful api data
-  if (response.status === 403 || response.status === 404 || response.status > 499) {
-    throw new Error(`FetchError: ${response.status} for ${url}`);
-  }
-  return data;
 };
 
 export const get = async <T>(query: string, options: RequestOptions = {}): Promise<T> => {
@@ -55,7 +58,9 @@ export const post = async <T>(
   };
   const body = JSON.stringify(data);
   const opts = { ...options, method: 'POST', body, headers };
-  return performRequest(query, { ...opts, session });
+  const requestResult = performRequest(query, { ...opts, session });
+  console.log('Post request result!', requestResult);
+  return requestResult;
 };
 
 export const put = async <T, K = Partial<T>>(query: string, data: K, options: RequestOptions = {}): Promise<T> => {

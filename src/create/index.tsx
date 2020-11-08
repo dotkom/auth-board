@@ -1,10 +1,11 @@
-import { Button, Checkbox, RadioButton, RadioGroup, TextField } from '@dotkomonline/design-system';
+import { Button, Checkbox, Message, RadioButton, RadioGroup, TextField } from '@dotkomonline/design-system';
 import { ResponseTypes } from 'client/components/ResponseTypes';
 import SectionHeader from 'client/components/SectionHeader';
 import { OidcClient } from 'client/models/model';
 import { post } from 'common/utils/api';
 import { getClientsOverviewUrl } from 'common/utils/urls';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -30,11 +31,20 @@ const CompleteFormArticle = styled.article`
 
 const CreateForm: React.FC = () => {
   const [newApplication, setNewApplication] = useState<Partial<OidcClient> | null>(null);
+  const [error, setError] = useState<string>(null);
   const [hasAgreed, setHasAgreed] = useState<boolean>(false);
+  const router = useRouter();
 
   const createNewApplication = async () => {
-    const response = post<Partial<OidcClient>>('/oidc/clients/', newApplication);
-    console.log('resp', response);
+    setError(null);
+    const response = await post<Partial<OidcClient>>('/oidc/clients/', newApplication);
+    if (response && response.id) {
+      router.push(`/clients/${response.id}`);
+    } else {
+      setError(
+        'Kunne ikke opprette ny klient. Sjekk at alle feltene er OK og prøv på nytt. Om feilen vedvarer, kontakt dotkom@online.ntnu.no'
+      );
+    }
   };
 
   const updateSingleField = (key, value) => {
@@ -49,6 +59,7 @@ const CreateForm: React.FC = () => {
   return (
     <FormWrapper>
       <h2>Registrer ny applikasjon</h2>
+      {error && <Message status="error">{error}</Message>}
       <article>
         <p>Du er i ferd med å lage en ny applikasjon for å aksessere Onlineweb4-data.</p>
         <p>
@@ -61,6 +72,7 @@ const CreateForm: React.FC = () => {
           placeholder="Kort, beskrivende navn"
           value={newApplication?.name}
           onChange={(value) => eventUpdateField('name', value)}
+          required
         />
       </article>
       <article>
@@ -71,6 +83,7 @@ const CreateForm: React.FC = () => {
           onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
             updateSingleField('redirect_uris', [value.currentTarget.value])
           }
+          required
         />
       </article>
       <article>
