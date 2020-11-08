@@ -16,13 +16,13 @@ const MenuWrapper = styled.nav`
   padding-right: 10px;
   border-right: 1px solid black;
   
-  > a {
+  & > a {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 5px;
     width: max-content;
   }
-  > a.active {
+  & > a.active {
     background-color #0D5474; 
     color: white;
   }
@@ -46,10 +46,10 @@ const Menu: React.FC<Props> = () => {
           <a className={activePage === 'basicInfo' ? 'active' : ''}>Basic info</a>
         </Link>
         <Link {...getExtendedInfoUrl(id)}>
-          <a className={activePage === 'basicInfo' ? 'extendedInfo' : ''}>Extended info</a>
+          <a className={activePage === 'extendedInfo' ? 'active' : ''}>Extended info</a>
         </Link>
         <Link {...getOauthDetailsUrl(id)}>
-          <a className={activePage === 'basicInfo' ? 'oauthDetails' : ''}>OAuth details</a>
+          <a className={activePage === 'oauthDetails' ? 'active' : ''}>OAuth details</a>
         </Link>
       </MenuWrapper>
     );
