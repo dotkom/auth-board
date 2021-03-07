@@ -13,10 +13,14 @@
     "format": "prettier --write 'src/**/*.{ts,tsx,less}'"
   },
   "dependencies": {
-    "@dotkomonline/design-system": "^0.22.0",
+    "@chakra-ui/react": "^1.3.4",
+    "@dotkomonline/design-system": "^0.11.1",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^10.0.27",
     "@types/next-auth": "^3.1.8",
     "@types/styled-components": "^5.1.3",
-    "next": "^9.5.5",
+    "framer-motion": "^3.10.0",
+    "next": "^10.0.7",
     "next-auth": "^3.1.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

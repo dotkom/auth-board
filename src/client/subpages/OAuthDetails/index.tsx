@@ -28,15 +28,22 @@ const RightColumn = styled.section`
   grid-row-start: 2;
 `;
 
+const GeneralInfo = styled.p`
+  margin: 1rem;
+  padding: 1rem;
+  background-color: darkgray;
+  border-radius: 15px;
+`;
+
 const OAuthDetails: React.FC<ClientViewProps> = ({ client }) => (
   <TwoColumnsWithTopSection>
     <TopSection>
       <SubPageHeader>OAuth 2.0 og OpenID Connect</SubPageHeader>
-      <p>
+      <GeneralInfo>
         Flere av API-endepunktene på Onlineweb4 er beskyttet med OAuth 2.0. Det første du må konfigurere i din klient er
         hvilken OAuth 2.0 flow skal bruke til å skaffe en OAuth token for den aktive brukeren, for deretter å bruke
         denne tokenen til å aksessere de ulike API-endepunktene.
-      </p>
+      </GeneralInfo>
     </TopSection>
     <LeftColumn>
       <ClientCredentials client={client} />

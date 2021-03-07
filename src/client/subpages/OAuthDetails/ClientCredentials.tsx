@@ -13,13 +13,21 @@ const Column = styled.article`
   }
 `;
 
+const ItalicP = styled.p`
+  font-style: italic;
+`;
+
 const ClientCredentials: React.FC<{ client: OidcClient }> = ({ client }) => {
   return (
     <>
       <SectionHeader>Client ID</SectionHeader>
       <CodeText>{client.client_id}</CodeText>
       <SectionHeader>Client Secret</SectionHeader>
-      <CodeText>{client.client_secret}</CodeText>
+      {client.client_secret ? (
+        <CodeText>{client.client_secret}</CodeText>
+      ) : (
+        <ItalicP>Public clients kan ikke ha secret og må bruke autentiseringsflyter uten secret</ItalicP>
+      )}
       <SectionHeader>Redirect URI</SectionHeader>
       <Column>
         {client.redirect_uris.map((uri) => (

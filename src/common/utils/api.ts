@@ -1,4 +1,5 @@
 import { getSession, Session } from 'next-auth/client';
+import { getServerSideProps } from 'pages/clients';
 
 interface RequestOptions extends RequestInit {
   headers?: Record<string, string>;
@@ -82,5 +83,15 @@ export const patch = async <T, K = Partial<T>>(query: string, data: K, options: 
   };
   const body = JSON.stringify(data);
   const opts = { ...options, method: 'PATCH', body, headers };
+  return performRequest(query, { ...opts, session });
+};
+
+export const deleteR = async <T>(query: string, options: RequestOptions = {}): Promise<T> => {
+  const session = await getSession();
+  const headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
+  const opts = { ...options, method: 'DELETE', headers };
   return performRequest(query, { ...opts, session });
 };
