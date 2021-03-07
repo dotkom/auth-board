@@ -1,5 +1,4 @@
-import { Button, Checkbox, Message, RadioButton, RadioGroup, TextField } from '@dotkomonline/design-system';
-import { ResponseTypes } from 'client/components/ResponseTypes';
+import { Button, Checkbox, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import SectionHeader from 'client/components/SectionHeader';
 import { OidcClient } from 'client/models/model';
 import { post } from 'common/utils/api';
@@ -8,6 +7,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Intro from './Intro';
+import ResponseTypeSelector from './ResponseTypeSelector';
+import SubmitCreation from './SubmitCreation';
 
 const FormWrapper = styled.section`
   width: 70%;
@@ -17,14 +19,6 @@ const FormWrapper = styled.section`
   }
 `;
 
-const NameInput = styled(TextField)`
-  width: 30%;
-`;
-
-const RedirectInput = styled(TextField)`
-  width: 50%;
-`;
-
 const CompleteFormArticle = styled.article`
   margin-top: 3%;
 `;
@@ -32,7 +26,6 @@ const CompleteFormArticle = styled.article`
 const CreateForm: React.FC = () => {
   const [newApplication, setNewApplication] = useState<Partial<OidcClient> | null>(null);
   const [error, setError] = useState<string>(null);
-  const [hasAgreed, setHasAgreed] = useState<boolean>(false);
   const router = useRouter();
 
   const createNewApplication = async () => {
@@ -57,57 +50,31 @@ const CreateForm: React.FC = () => {
   };
 
   return (
-    <FormWrapper>
-      <h2>Registrer ny applikasjon</h2>
-      {error && <Message status="error">{error}</Message>}
-      <article>
-        <p>Du er i ferd med å lage en ny applikasjon for å aksessere Onlineweb4-data.</p>
-        <p>
-          Gi din applikasjon et kort, beskrivende navn og en lenger beskrivelse som forklarer hva din applikasjon gjør.
-        </p>
-      </article>
+    <Stack maxW={{ sm: '4xl' }} direction="column" spacing="10px" mx={{ sm: 'auto' }} mt="12px">
+      <Intro error={error} />
       <article>
         <SectionHeader>Navn</SectionHeader>
-        <NameInput
+        <Input
           placeholder="Kort, beskrivende navn"
-          value={newApplication?.name}
+          defaultValue={newApplication?.name}
           onChange={(value) => eventUpdateField('name', value)}
           required
         />
       </article>
       <article>
         <SectionHeader>OAuth 2.0 Redirect URL</SectionHeader>
-        <RedirectInput
+        <Input
           placeholder="https://dinapplikasjon.no/callback"
-          value={newApplication?.redirect_uris}
+          defaultValue={newApplication?.redirect_uris}
           onChange={(value: React.ChangeEvent<HTMLInputElement>) =>
             updateSingleField('redirect_uris', [value.currentTarget.value])
           }
           required
         />
       </article>
-      <article>
-        <SectionHeader>Response type</SectionHeader>
-        <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
-          {ResponseTypes.map((responseType) => (
-            <RadioButton key={responseType.id} value={String(responseType.id)}>
-              {responseType.description}
-            </RadioButton>
-          ))}
-        </RadioGroup>
-      </article>
-      <CompleteFormArticle>
-        <Checkbox label="Aksepter vilkår for bruk" onChange={setHasAgreed} />
-        <div>
-          <Link {...getClientsOverviewUrl()} passHref={true}>
-            <Button variant="outline">Avbryt</Button>
-          </Link>
-          <Button disabled={!hasAgreed} onClick={createNewApplication}>
-            Registrer ny applikasjon
-          </Button>
-        </div>
-      </CompleteFormArticle>
-    </FormWrapper>
+      <ResponseTypeSelector update={updateSingleField} />
+      <SubmitCreation submit={createNewApplication} />
+    </Stack>
   );
 };
 

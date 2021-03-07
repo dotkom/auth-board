@@ -1,4 +1,4 @@
-import { Button, TextField } from '@dotkomonline/design-system';
+import { Button, Input } from '@chakra-ui/react';
 import ControlledSpacedForm from 'client/components/SpacedForm';
 import SubPageHeader from 'client/components/SubPageHeader';
 import useClientForm from 'client/hooks/useClientForm';
@@ -16,15 +16,15 @@ const ExtendedInfo: React.FC<ClientViewProps> = ({ client }) => {
       <ControlledSpacedForm>
         <article>
           <SectionHeader>Hjemmeside for applikasjonen</SectionHeader>
-          <TextField placeholder="https://online.ntnu.no" />
+          <Input placeholder="https://online.ntnu.no" />
         </article>
         <article>
           <SectionHeader>Policy-URL</SectionHeader>
-          <TextField placeholder="https://online.ntnu.no/privacy" />
+          <Input placeholder="https://online.ntnu.no/privacy" />
         </article>
         <article>
           <SectionHeader>Kontakt-e-postadresse</SectionHeader>
-          <TextField placeholder="dotkom@online.ntnu.no" onChange={(value) => eventUpdateField('', value)} />
+          <Input placeholder="dotkom@online.ntnu.no" onChange={(value) => eventUpdateField('', value)} />
         </article>
         <article>
           <SectionHeader>Post logout redirect URI</SectionHeader>

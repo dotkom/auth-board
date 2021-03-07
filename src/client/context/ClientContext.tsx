@@ -44,8 +44,7 @@ const ClientProvider: React.FC = ({ children }) => {
   };
 
   const deleteClient = async (id: number) => {
-    const resp = await deleteR(`/oidc/clients/${id}/`);
-    console('delete response', resp);
+    await deleteR(`/oidc/clients/${id}/`);
   };
 
   const getClient = (id: number) => {

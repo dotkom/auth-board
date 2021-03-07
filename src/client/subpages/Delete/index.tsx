@@ -1,20 +1,24 @@
-import { Button, Icon } from '@dotkomonline/design-system';
 import SubPageHeader from 'client/components/SubPageHeader';
 import ClientContext from 'client/context/ClientContext';
 import { ClientViewProps } from 'client/types';
+import { useRouter } from 'next/router';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import Confirmation from './Confirmation';
 
 const SpacedText = styled.p`
   margin: 1rem 0;
 `;
 
-const SmallButton = styled(Button)`
-  width: max-content;
-`;
-
 const Delete: React.FC<ClientViewProps> = ({ client }) => {
   const { deleteClient } = useContext(ClientContext);
+  const router = useRouter();
+
+  const deleteAndRedirect = async () => {
+    await deleteClient(client.id);
+    router.push('/clients');
+  };
+
   return (
     <>
       <SubPageHeader>Delete</SubPageHeader>
@@ -22,10 +26,7 @@ const Delete: React.FC<ClientViewProps> = ({ client }) => {
       <SpacedText>
         Du vil ikke kunne lage en ny klient med samme ID, og alle autoriseringer vil bli tilbakestilt.
       </SpacedText>
-      <SmallButton color="danger" onClick={() => console.log('cli', client.id)}>
-        <Icon name="warning" />
-        Slett denne klienten, jeg vet hva jeg gjør
-      </SmallButton>
+      <Confirmation deleteAndRedirect={deleteAndRedirect} />
     </>
   );
 };

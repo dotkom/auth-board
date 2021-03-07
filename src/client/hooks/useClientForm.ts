@@ -2,11 +2,13 @@ import ClientContext from 'client/context/ClientContext';
 import { OidcClient } from 'client/models/model';
 import { useContext, useState } from 'react';
 
+export type UpdateSingleField = (key: string, value: string | boolean | string[]) => void;
+
 const useClientForm = (clientId: number) => {
   const [newClient, setNewClient] = useState<OidcClient>(null);
   const { patchClient } = useContext(ClientContext);
 
-  const updateSingleField = (key: string, value: string | boolean | string[]) => {
+  const updateSingleField: UpdateSingleField = (key: string, value: string | boolean | string[]) => {
     setNewClient({ ...newClient, [key]: value });
   };
 

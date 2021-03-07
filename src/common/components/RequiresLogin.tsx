@@ -1,4 +1,4 @@
-import { Spinner } from '@dotkomonline/design-system';
+import { Spinner } from '@chakra-ui/react';
 import { useSession } from 'next-auth/client';
 import React from 'react';
 import styled from 'styled-components';

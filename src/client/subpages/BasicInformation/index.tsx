@@ -1,93 +1,36 @@
-import { Checkbox, TextField, RadioGroup, RadioButton, Button, Message } from '@dotkomonline/design-system';
 import styled from 'styled-components';
-import { ResponseTypes } from '../../components/ResponseTypes';
 import { ClientViewProps } from '../../types';
 import React from 'react';
-import SectionHeader from '../../components/SectionHeader';
-import URLsField from '../../components/URLsField';
 import useClientForm from 'client/hooks/useClientForm';
-import ControlledSpacedForm from 'client/components/SpacedForm';
 import SubPageHeader from 'client/components/SubPageHeader';
+import NameInput from './NameInput';
+import { Alert, Button, Stack } from '@chakra-ui/react';
+import RedirectURIs from './RedirectURIs';
+import ReuseConsent from './ReuseConsent';
+import ClientType from './ClientType';
+import ResponseTypeSelector from 'create/ResponseTypeSelector';
 
-const BoldSpan = styled.span`
-  font-weight: bold;
-`;
-
-const PublicMessage = styled(Message)`
+const PublicMessage = styled(Alert)`
   margin-top: 15px;
 `;
 
-const explanationText =
-  'Legg inn dine OAuth 2.0 redirect_uri. Dette er URL-en hvor brukeren vil bli videresendt etter en suksessfull autentisering';
-
 const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
-  const { eventUpdateField, updateSingleField, post, newClient } = useClientForm(client.id);
-
+  const { updateSingleField, post, newClient } = useClientForm(client.id);
   return (
     <>
       <SubPageHeader>Basic Info</SubPageHeader>
-      <ControlledSpacedForm>
-        <article>
-          <SectionHeader>Navn</SectionHeader>
-          <TextField
-            placeholder={client.name}
-            onChange={(value) => eventUpdateField('name', value)}
-            value={newClient?.name || client.name}
-          />
-        </article>
-        <article>
-          <SectionHeader>Redirect URIs:</SectionHeader>
-          <URLsField
-            defaultUrls={client.redirect_uris || []}
-            onChange={(value) => updateSingleField('redirect_uris', value)}
-            explanationText={explanationText}
-            buttonText={'Legg til Redirect_URL'}
-          />
-        </article>
-        <article>
-          <SectionHeader>Brukerinteraksjon</SectionHeader>
-          <Checkbox
-            label="Krev brukerinteraksjon"
-            defaultChecked={client.reuse_consent}
-            onChange={(value) => updateSingleField('require_consent', value)}
-          />
-          <p>
-            Krev at sluttbruker alltid må interagere med Onlineweb4 under autentisering og autorisering. Skru av dette
-            for å legge til støtte for login_hint og &quot;passive authentication requests&quot;.
-          </p>
-        </article>
-        <article>
-          <SectionHeader>Client Type</SectionHeader>
-          <RadioGroup onChange={(value) => updateSingleField('client_type', value)}>
-            <RadioButton value="public" checked={client.client_type === 'public'}>
-              <p>
-                <BoldSpan>Public</BoldSpan> - Applikasjonen er åpent tilgjengelig, som f.eks. en mobil-app eller single
-                page web application. For bruk med implicit grant flow eller PKCE
-              </p>
-            </RadioButton>
-            <RadioButton value="confidential" checked={client.client_type === 'confidential'}>
-              <p>
-                <BoldSpan>Confidential</BoldSpan> - Applikasjonen klarer opprettholde konfidensialiteten til
-                client_secret-en. For bruk med ordinær authorization code flow
-              </p>
-            </RadioButton>
-          </RadioGroup>
-        </article>
-        <article>
-          <SectionHeader>Response Type</SectionHeader>
-          <RadioGroup onChange={(value) => updateSingleField('response_types', [value])}>
-            {ResponseTypes.map((responseType) => (
-              <RadioButton
-                key={responseType.id}
-                value={String(responseType.id)}
-                checked={client.response_types[0].id === responseType.id}
-              >
-                {responseType.description}
-              </RadioButton>
-            ))}
-          </RadioGroup>
-        </article>
-        <Button onClick={post} color="success">
+      <Stack spacing="40px">
+        <NameInput name={newClient?.name || client.name} update={updateSingleField} />
+        <RedirectURIs redirect_uris={newClient?.redirect_uris || client.redirect_uris} update={updateSingleField} />
+        <ReuseConsent reuse_consent={newClient?.require_consent || client.reuse_consent} update={updateSingleField} />
+        <ClientType client_type={newClient?.client_type || client.client_type} update={updateSingleField} />
+        <ResponseTypeSelector
+          defaultValue={
+            newClient?.response_types ? String(newClient?.response_types[0].id) : String(client.response_types[0].id)
+          }
+          update={updateSingleField}
+        />
+        <Button maxW={{ sm: 'md' }} onClick={post} color="success">
           Lagre endringer
         </Button>
         <PublicMessage status="info">
@@ -100,7 +43,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
             </p>
           </div>
         </PublicMessage>
-      </ControlledSpacedForm>
+      </Stack>
     </>
   );
 };

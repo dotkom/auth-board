@@ -1,20 +1,11 @@
-import { Button, Icon } from '@dotkomonline/design-system';
+import { AddIcon } from '@chakra-ui/icons';
+import { Button, LinkBox, LinkOverlay, Stack } from '@chakra-ui/react';
 import ClientContext from 'client/context/ClientContext';
 import { getCreateAppUrl } from 'common/utils/urls';
 import Link from 'next/link';
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
 import Header from '../common/components/Header';
 import ClientList from './components/List';
-
-const ListWrapper = styled.div`
-  margin: 5% auto auto;
-  width: 50%;
-`;
-
-const ButtonWrapper = styled(Button)`
-  margin-bottom: 10px;
-`;
 
 const Overview: React.FC = () => {
   const { getClients } = useContext(ClientContext);
@@ -26,15 +17,16 @@ const Overview: React.FC = () => {
   return (
     <>
       <Header />
-      <ListWrapper>
-        <Link {...getCreateAppUrl()} passHref={true}>
-          <ButtonWrapper>
-            <Icon name="add" />
-            <p style={{ display: 'inline', verticalAlign: 'middle' }}>Registrer ny applikasjon</p>
-          </ButtonWrapper>
-        </Link>
+      <Stack maxW={{ sm: '3xl' }} mx="auto" w={{ sm: 'full' }} spacing="12px" direction="column">
+        <LinkBox>
+          <Link {...getCreateAppUrl()} passHref={true}>
+            <LinkOverlay>
+              <Button leftIcon={<AddIcon />}>Registrer ny applikasjon</Button>
+            </LinkOverlay>
+          </Link>
+        </LinkBox>
         <ClientList />
-      </ListWrapper>
+      </Stack>
     </>
   );
 };
