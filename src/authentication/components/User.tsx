@@ -1,7 +1,7 @@
 import { signOut, useSession } from 'next-auth/client';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Button } from '@dotkomonline/design-system';
+import { Button, Text } from '@chakra-ui/react';
 import ClientContext from 'client/context/ClientContext';
 
 const ProfilePic = styled.img`
@@ -23,10 +23,6 @@ const UserPanel = styled.div`
   align-items: end;
 `;
 
-const LogOutButton = styled(Button)`
-  margin-left: 15px;
-`;
-
 const User: React.FC = () => {
   const [session] = useSession();
   const { emptyContext } = useContext(ClientContext);
@@ -39,7 +35,9 @@ const User: React.FC = () => {
     <UserPanel>
       <ProfilePic src={session?.user.image} alt="Profilbilde" />
       <Username>{session?.user.name}</Username>
-      <LogOutButton onClick={logout}>Logg ut</LogOutButton>
+      <Button onClick={logout}>
+        <Text>Logg ut</Text>
+      </Button>
     </UserPanel>
   );
 };

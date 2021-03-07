@@ -5,6 +5,7 @@ import SubPageHeader from 'client/components/SubPageHeader';
 import styled from 'styled-components';
 import OIDC from './OIDC';
 import OAuth from './OAuth';
+import { Alert } from '@chakra-ui/react';
 
 const TwoColumnsWithTopSection = styled.section`
   display: grid;
@@ -32,11 +33,11 @@ const OAuthDetails: React.FC<ClientViewProps> = ({ client }) => (
   <TwoColumnsWithTopSection>
     <TopSection>
       <SubPageHeader>OAuth 2.0 og OpenID Connect</SubPageHeader>
-      <p>
+      <Alert>
         Flere av API-endepunktene på Onlineweb4 er beskyttet med OAuth 2.0. Det første du må konfigurere i din klient er
         hvilken OAuth 2.0 flow skal bruke til å skaffe en OAuth token for den aktive brukeren, for deretter å bruke
         denne tokenen til å aksessere de ulike API-endepunktene.
-      </p>
+      </Alert>
     </TopSection>
     <LeftColumn>
       <ClientCredentials client={client} />

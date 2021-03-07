@@ -1,4 +1,4 @@
-import { get, patch, post } from 'common/utils/api';
+import { get, patch, post, deleteR } from 'common/utils/api';
 import React, { useState } from 'react';
 import { OidcClient } from '../models/model';
 
@@ -9,6 +9,7 @@ interface ClientContextType {
   getClients: () => Promise<void>;
   patchClient: (id: number, client: OidcClient) => Promise<void>;
   updateClient: (id: number) => Promise<void>;
+  deleteClient: (id: number) => Promise<void>;
   emptyContext: () => void;
 }
 
@@ -19,13 +20,14 @@ const initialContext = {
   getClients: () => null,
   patchClient: () => null,
   updateClient: () => Promise.resolve(),
+  deleteClient: () => null,
   emptyContext: () => null,
 };
 
 const ClientContext = React.createContext<ClientContextType>(initialContext);
 
 const ClientProvider: React.FC = ({ children }) => {
-  const [clients, setClients] = useState<Record<number, OidcClient>>([]);
+  const [clients, setClients] = useState<Record<number, OidcClient>>({});
   const [loading, setLoading] = useState<boolean>(false);
 
   const updateClient = async (id: number) => {
@@ -39,6 +41,10 @@ const ClientProvider: React.FC = ({ children }) => {
 
   const patchClient = async (id: number, client: OidcClient) => {
     await patch<OidcClient>(`/oidc/clients/${id}/`, client);
+  };
+
+  const deleteClient = async (id: number) => {
+    await deleteR(`/oidc/clients/${id}/`);
   };
 
   const getClient = (id: number) => {
@@ -66,6 +72,7 @@ const ClientProvider: React.FC = ({ children }) => {
         getClients,
         patchClient,
         updateClient,
+        deleteClient,
         emptyContext,
       }}
     >

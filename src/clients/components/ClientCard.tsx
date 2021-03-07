@@ -1,5 +1,5 @@
-import { Card } from '@dotkomonline/design-system';
 import { OidcClient } from 'client/models/model';
+import { LinkBox, LinkOverlay, SimpleGrid } from '@chakra-ui/react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import React from 'react';
@@ -26,16 +26,21 @@ const UpperText = styled(GridText)`
 `;
 const LowerText = styled(GridText)`
   grid-row: 2;
+  align-self: end;
 `;
 
-const CardStyle = {
-  width: '100%',
-  height: '150px',
-  marginBottom: '15px',
-  display: 'grid',
-  gridTemplateColumns: '0.5fr 2fr',
-  gridTemplateRows: '1fr fr',
-};
+const Card = styled(LinkBox)`
+  padding: 10px;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: 0.2s;
+  &:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+`;
 
 const LogoWrapper = styled.div`
   margin: auto;
@@ -48,20 +53,24 @@ const ApplicationName = styled.h3`
 `;
 
 const ClientCard: React.FC<Props> = ({ client }) => (
-  <Link href={`/clients/${client.id}`}>
-    <Card style={CardStyle} as="a">
-      <LogoWrapper>
-        <ImageWithDefault width="100px">
-          <ClientLogo src={client.logo} alt="App-logo" />
-        </ImageWithDefault>
-      </LogoWrapper>
-      <UpperText>
-        <ApplicationName>{client.name}</ApplicationName>
-        <p>ID: {client.client_id}</p>
-      </UpperText>
-      <LowerText>Opprettet: {client.date_created}</LowerText>
-    </Card>
-  </Link>
+  <Card>
+    <Link href={`/clients/${client.id}`}>
+      <LinkOverlay>
+        <SimpleGrid templateColumns="0.5fr 2fr" templateRows="1fr 1fr" h="100%">
+          <LogoWrapper>
+            <ImageWithDefault width="100px">
+              <ClientLogo src={client.logo} alt="App-logo" />
+            </ImageWithDefault>
+          </LogoWrapper>
+          <UpperText>
+            <ApplicationName>{client.name}</ApplicationName>
+            <p>ID: {client.client_id}</p>
+          </UpperText>
+          <LowerText>Opprettet: {client.date_created}</LowerText>
+        </SimpleGrid>
+      </LinkOverlay>
+    </Link>
+  </Card>
 );
 
 export default ClientCard;

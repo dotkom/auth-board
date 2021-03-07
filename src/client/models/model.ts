@@ -8,7 +8,7 @@ export interface OidcClientOwner {
 export interface OidcClient {
   id: number;
   client_id: string;
-  client_type: string;
+  client_type: 'public' | 'confidential';
   name: string;
   owner?: OidcClientOwner;
   date_created: string;

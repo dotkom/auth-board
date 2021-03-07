@@ -1,4 +1,10 @@
-import { getBasicInfoUrl, getClientViewUrl, getExtendedInfoUrl, getOauthDetailsUrl } from 'common/utils/urls';
+import {
+  getBasicInfoUrl,
+  getClientViewUrl,
+  getExtendedInfoUrl,
+  getOauthDetailsUrl,
+  getDeleteUrl,
+} from 'common/utils/urls';
 import Link from 'next/link';
 import styled from 'styled-components';
 import React from 'react';
@@ -15,16 +21,23 @@ const MenuWrapper = styled.nav`
   margin-right: 10px;
   padding-right: 10px;
   border-right: 1px solid black;
-  
+
   & > a {
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 5px;
     width: max-content;
+    text-decoration: none;
   }
+
+  & > a:visited {
+    color: black;
+  }
+
   & > a.active {
-    background-color #0D5474; 
+    background-color: #0d5474;
     color: white;
+    font-weight: bold;
   }
 `;
 
@@ -50,6 +63,9 @@ const Menu: React.FC<Props> = () => {
         </Link>
         <Link {...getOauthDetailsUrl(id)}>
           <a className={activePage === 'oauthDetails' ? 'active' : ''}>OAuth details</a>
+        </Link>
+        <Link {...getDeleteUrl(id)}>
+          <a className={activePage === 'delete' ? 'active' : ''}>Delete</a>
         </Link>
       </MenuWrapper>
     );

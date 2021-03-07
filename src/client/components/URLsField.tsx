@@ -1,4 +1,5 @@
-import { TextField, Button, Icon } from '@dotkomonline/design-system';
+import { AddIcon, CloseIcon } from '@chakra-ui/icons';
+import { Button, Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -31,16 +32,18 @@ const URLsField: React.FC<Props> = ({ defaultUrls, onChange, explanationText, bu
     <div>
       <Explanation>{explanationText}</Explanation>
       <Button onClick={() => setUrls([...urls, ''])}>
-        <Icon name="add" />
+        <AddIcon />
         {buttonText}
       </Button>
       {urls.map((url, index) => (
-        <URL key={index}>
-          <TextField placeholder={url} onBlur={(e) => onBlur(index, e)} />
-          <Button onClick={() => setUrls(urls.filter((_, iter) => index !== iter))}>
-            <Icon name="clear" />
-          </Button>
-        </URL>
+        <InputGroup key={index}>
+          <Input placeholder={url} onBlur={(e) => onBlur(index, e)} />
+          <InputRightAddon>
+            <Button onClick={() => setUrls(urls.filter((_, iter) => index !== iter))}>
+              <CloseIcon />
+            </Button>
+          </InputRightAddon>
+        </InputGroup>
       ))}
     </div>
   );

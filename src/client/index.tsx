@@ -3,9 +3,10 @@ import BasicInformation from './subpages/BasicInformation';
 import ExtendedInformation from './subpages/ExtendedInfo';
 import ClientOverview from './subpages/ClientOverview';
 import OauthDetails from './subpages/OAuthDetails';
+import Delete from './subpages/Delete';
 import ClientContext from './context/ClientContext';
 import Menu from './components/Menu';
-import { Spinner } from '@dotkomonline/design-system';
+import { Spinner } from '@chakra-ui/react';
 import Header from 'common/components/Header';
 import styled from 'styled-components';
 import { CenterSpinnerWrapper } from 'common/components/RequiresLogin';
@@ -20,6 +21,7 @@ enum PageNames {
   BasicInformation = 'basicInfo',
   ExtendedInformation = 'extendedInfo',
   OauthDetails = 'oauthDetails',
+  Delete = 'delete',
 }
 
 const selectSubView = (name: string) => {
@@ -32,6 +34,8 @@ const selectSubView = (name: string) => {
       return ExtendedInformation;
     case PageNames.OauthDetails:
       return OauthDetails;
+    case PageNames.Delete:
+      return Delete;
   }
 };
 
