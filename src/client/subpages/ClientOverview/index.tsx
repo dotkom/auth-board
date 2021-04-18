@@ -48,7 +48,7 @@ const ClientOverview: React.FC<ClientViewProps> = ({ client }) => {
           ))}
         </RegularList>
       </RedirectSection>
-      <p>Opprettet: {client.date_created}</p>
+      <p>Opprettet: {client.created}</p>
       <OverviewImageWrapper>
         <ImageWithDefault>
           <img src={client.logo} />

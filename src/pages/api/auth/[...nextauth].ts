@@ -45,14 +45,14 @@ const options = {
       name: 'Onlineweb4',
       type: 'oauth',
       version: '2.0',
-      scope: 'openid profile email onlineweb4 oidcadmin',
+      scope: 'openid profile authentication:admin',
       params: {
         grant_type: 'authorization_code',
       },
-      accessTokenUrl: `${OW4_ADDRESS}/openid/token`,
-      requestTokenUrl: `${OW4_ADDRESS}/openid/authorize`,
-      authorizationUrl: `${OW4_ADDRESS}/openid/authorize?response_type=code`,
-      profileUrl: `${OW4_ADDRESS}/openid/userinfo`,
+      accessTokenUrl: `${OW4_ADDRESS}/sso/token/`,
+      requestTokenUrl: `${OW4_ADDRESS}/sso/authorize/`,
+      authorizationUrl: `${OW4_ADDRESS}/sso/authorize/?response_type=code`,
+      profileUrl: `${OW4_ADDRESS}/sso/userinfo/`,
       profile: (profile) => {
         return {
           ...profile,

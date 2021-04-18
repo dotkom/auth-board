@@ -26,7 +26,7 @@ const BasicInfo: React.FC<ClientViewProps> = ({ client }) => {
         <ClientType client_type={newClient?.client_type || client.client_type} update={updateSingleField} />
         <ResponseTypeSelector
           defaultValue={
-            newClient?.response_types ? String(newClient?.response_types[0].id) : String(client.response_types[0].id)
+            newClient?.authorization_grant_type ? newClient?.authorization_grant_type : client.authorization_grant_type
           }
           update={updateSingleField}
         />

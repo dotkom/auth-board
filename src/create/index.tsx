@@ -30,7 +30,7 @@ const CreateForm: React.FC = () => {
 
   const createNewApplication = async () => {
     setError(null);
-    const response = await post<Partial<OidcClient>>('/oidc/clients/', newApplication);
+    const response = await post<Partial<OidcClient>>('/sso/clients/', newApplication);
     if (response && response.id) {
       router.push(`/clients/${response.id}`);
     } else {

@@ -11,7 +11,7 @@ export interface OidcClient {
   client_type: 'public' | 'confidential';
   name: string;
   owner?: OidcClientOwner;
-  date_created: string;
+  created: string;
   website_url: string;
   terms_url: string;
   contact_email: string;
@@ -19,13 +19,7 @@ export interface OidcClient {
   require_consent: boolean;
   reuse_consent: boolean;
   scope: string[];
-  response_types: ResponseType[];
+  authorization_grant_type: string;
   redirect_uris: string[];
   client_secret?: string;
-}
-
-export interface ResponseType {
-  id: number;
-  value: string;
-  description: string;
 }
