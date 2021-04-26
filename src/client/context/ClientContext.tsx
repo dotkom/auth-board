@@ -32,7 +32,7 @@ const ClientProvider: React.FC = ({ children }) => {
 
   const updateClient = async (id: number) => {
     setLoading(true);
-    const client = await get<OidcClient>(`/sso/clients/${id}/`);
+    const client = await get<OidcClient>(`/sso/confidential/${id}/`);
     setClients({ ...clients, [id]: client });
     setLoading(false);
   };
@@ -40,11 +40,11 @@ const ClientProvider: React.FC = ({ children }) => {
   const emptyContext = () => setClients([]);
 
   const patchClient = async (id: number, client: OidcClient) => {
-    await patch<OidcClient>(`/sso/clients/${id}/`, client);
+    await patch<OidcClient>(`/sso/confidential/${id}/`, client);
   };
 
   const deleteClient = async (id: number) => {
-    await deleteR(`/sso/clients/${id}/`);
+    await deleteR(`/sso/confidential/${id}/`);
   };
 
   const getClient = (id: number) => {
@@ -53,8 +53,8 @@ const ClientProvider: React.FC = ({ children }) => {
 
   const getClients = async () => {
     setLoading(true);
-    const clients = await get<OidcClient[]>('/sso/confidential/', {});
-    if (clients) {
+    const clients = await get<OidcClient[]>('/sso/confidential/');
+    if (clients && Array.isArray(clients)) {
       const clientsRecord = clients.reduce((acc, curr) => {
         return { ...acc, [curr.id]: curr };
       }, {});
