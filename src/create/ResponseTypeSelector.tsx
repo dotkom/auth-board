@@ -11,11 +11,11 @@ type Props = {
 const ResponseTypeSelector: React.FC<Props> = ({ update, defaultValue }) => (
   <Box as="article">
     <SectionHeader>Response type</SectionHeader>
-    <RadioGroup onChange={(value) => update('response_types', [value])} defaultValue={defaultValue}>
+    <RadioGroup onChange={(value) => update('authorization_grant_type', value)} defaultValue={defaultValue}>
       <Stack direction="column">
         {ResponseTypes.map((responseType) => (
-          <Radio key={responseType.id} value={String(responseType.id)}>
-            {responseType.description}
+          <Radio key={responseType} value={responseType}>
+            {responseType}
           </Radio>
         ))}
       </Stack>

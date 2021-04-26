@@ -66,7 +66,7 @@ const ClientCard: React.FC<Props> = ({ client }) => (
             <ApplicationName>{client.name}</ApplicationName>
             <p>ID: {client.client_id}</p>
           </UpperText>
-          <LowerText>Opprettet: {client.date_created}</LowerText>
+          <LowerText>Opprettet: {client.created}</LowerText>
         </SimpleGrid>
       </LinkOverlay>
     </Link>
